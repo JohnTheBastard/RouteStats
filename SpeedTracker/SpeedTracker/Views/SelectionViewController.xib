@@ -9,19 +9,17 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SelectionViewController" customModule="SpeedTracker" customModuleProvider="target"/>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SelectionViewController" customModule="SpeedTracker" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="Gfy-Qf-I8C" id="9iJ-54-JvP"/>
+            </connections>
+        </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <viewController title="SelectionViewController" nibName="SelectionViewController" id="700-eE-yEC" customClass="SelectionViewController" customModule="SpeedTracker" customModuleProvider="target">
-            <layoutGuides>
-                <viewControllerLayoutGuide type="top" id="L1i-W8-Dw3"/>
-                <viewControllerLayoutGuide type="bottom" id="u8P-87-1FW"/>
-            </layoutGuides>
-            <view key="view" contentMode="scaleToFill" id="19l-E5-LJ7">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-            </view>
-            <point key="canvasLocation" x="-4" y="40"/>
-        </viewController>
+        <view contentMode="scaleToFill" id="Gfy-Qf-I8C">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <point key="canvasLocation" x="-136" y="-91"/>
+        </view>
     </objects>
 </document>
