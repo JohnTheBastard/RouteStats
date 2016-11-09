@@ -25,9 +25,9 @@ DerivedData/
 xcuserdata/
 
 ## Other
-*.moved-aside
-*.xccheckout
-*.xcscmblueprint
+#*.moved-aside
+#*.xccheckout
+#*.xcscmblueprint
 
 
 ### Swift ###

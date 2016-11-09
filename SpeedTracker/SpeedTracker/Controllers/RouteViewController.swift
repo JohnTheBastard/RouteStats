@@ -94,8 +94,8 @@ class RouteViewController: UIViewController {
     }
 
     private func metersToMiles(distance: Double) -> String{
-        // There are 1609.344 meters in a mile
-        let miles = distance / 1609.344
+        let metersInAMile = 1609.344
+        let miles = distance / metersInAMile
         return String(format: "%.2f", miles)
 
     }
@@ -197,7 +197,12 @@ class RouteViewController: UIViewController {
 
     @IBAction func stopButtonPressed(_ sender: Any) {
         self.timer.invalidate()
+
+        let completedRoute = Route(timeElapsed: self.elapsedTime,
+                                   distanceTravelled: self.distance,
+                                   locations: self.allLocations)
         //TODO: call to cache route stats needs to go here
+        //TODO: Alert user data is saved
     }
 }
 
