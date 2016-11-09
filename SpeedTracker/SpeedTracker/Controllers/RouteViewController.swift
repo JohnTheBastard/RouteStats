@@ -2,7 +2,7 @@
 //  RouteViewController.swift
 //  SpeedTracker
 //
-//  Created by John D Hearn on 11/7/16.
+//  Created by John D Hearn and Jake Dobson on 11/7/16.
 //  Copyright © 2016 Bastardized Productions. All rights reserved.
 //
 
@@ -18,61 +18,61 @@ class RouteViewController: UIViewController {
     @IBOutlet weak var averageSpeed: UILabel!
     @IBOutlet weak var mapView: MKMapView!
 
+    // MARK: - Properties
     lazy var locationManager: CLLocationManager = {
         var _locationManager = CLLocationManager()
         _locationManager.delegate = self
+        if CLLocationManager.authorizationStatus() == .notDetermined {
+            _locationManager.requestAlwaysAuthorization()
+        }
+        if CLLocationManager.locationServicesEnabled() {
+            //This seems to help reduce bad initial location values.
+            _locationManager.requestLocation()
+        }
         _locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        _locationManager.activityType = .fitness
+        _locationManager.activityType = .automotiveNavigation  //.fitness
 
         // Movement threshold for new events
         _locationManager.distanceFilter = 10.0
         return _locationManager
     }()
 
-
-    lazy var timer = Timer()
+    var locationManagerTimeStamp = Date.distantFuture.timeIntervalSince1970
     var elapsedTime: Int = 0
     var distance: Double = 0.0
-    lazy var polyline = MKPolyline(coordinates: [], count: 0)
-    lazy var allLocations = [CLLocation]()
     var averageVelocity: Double {
         if self.elapsedTime > 0 {
-            var temp = self.distance / Double(self.elapsedTime)
-            print("\(self.distance) divided by \(self.elapsedTime) equals \(temp)")
             return self.distance / Double(self.elapsedTime)
         } else {
             return 0.0
         }
     }
 
+    lazy var allLocations = [CLLocation]()
+    lazy var timer = Timer()
+    lazy var polyline = MKPolyline(coordinates: [], count: 0)
 
-
-
+    // MARK: - ViewController Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
+        UIApplication.shared.statusBarStyle = .lightContent
         self.mapView.delegate = self
-
-        setupLocationManager()
 
         self.timeTravelled.text = "00:00"
         self.distanceTravelled.text = "0"
         self.currentSpeed.text = "0"
         self.averageSpeed.text = "0"
-
-        //self.view.backgroundColor = UIColor.white
     }
 
-    func setupLocationManager() {
-        if CLLocationManager.authorizationStatus() == .notDetermined {
-            self.locationManager.requestAlwaysAuthorization()
-        }
-        if CLLocationManager.locationServicesEnabled() {
-            self.locationManager.requestLocation()  //This can probably go away
-        }
-
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        resetProperties()
+        UIApplication.shared.statusBarStyle = .default
+        self.locationManager.stopUpdatingLocation()
     }
 
-    func leftPad(_ number: Int) -> String{
+    // MARK: - Private Helper Methods
+    private func leftPad(_ number: Int) -> String{
         var stringified = String(number)
         if stringified.characters.count < 2 {
             stringified = "0" + stringified
@@ -80,8 +80,7 @@ class RouteViewController: UIViewController {
         return stringified
     }
 
-    func parseTime(_ time: Int) -> String{
-        //TODO: Think of better variable names
+    private func parseTime(_ time: Int) -> String{
         let mmss = time % 3600           // mod away completed hours for minutes and seconds.
         let hh = (time - mmss) / 3600    // calculate completed hours.
         let ss = time % 60               // mod away completed minutes for seconds.
@@ -94,23 +93,14 @@ class RouteViewController: UIViewController {
         return timeString
     }
 
-    func metersToMiles(distance: Double) -> String{
+    private func metersToMiles(distance: Double) -> String{
         // There are 1609.344 meters in a mile
         let miles = distance / 1609.344
         return String(format: "%.2f", miles)
 
     }
 
-    func locationIsValid(new: CLLocation?, old: CLLocation) -> Bool {
-        if  new == nil, new!.horizontalAccuracy < 0 {
-                return false
-        }
-
-
-        return true
-    }
-
-    func mapRegion() -> MKCoordinateRegion? {
+    private func mapRegion() -> MKCoordinateRegion? {
         if let initialLoc = self.allLocations.first?.coordinate {
 
             var minLat = initialLoc.latitude
@@ -118,13 +108,11 @@ class RouteViewController: UIViewController {
             var maxLat = minLat
             var maxLng = minLng
 
-            let locations = self.allLocations.map({$0.coordinate})
-
-            for location in locations {
-                minLat = min(minLat, location.latitude)
-                minLng = min(minLng, location.longitude)
-                maxLat = max(maxLat, location.latitude)
-                maxLng = max(maxLng, location.longitude)
+            for location in self.allLocations {
+                minLat = min(minLat, location.coordinate.latitude)
+                minLng = min(minLng, location.coordinate.longitude)
+                maxLat = max(maxLat, location.coordinate.latitude)
+                maxLng = max(maxLng, location.coordinate.longitude)
             }
 
             return MKCoordinateRegion(
@@ -137,20 +125,17 @@ class RouteViewController: UIViewController {
         }
     }
 
-    func setupPolyline() {
-
-        var coords = self.allLocations.map({CLLocationCoordinate2D(latitude: $0.coordinate.latitude,
-                                                                   longitude: $0.coordinate.longitude)})
+    private func setupPolyline() {
+        var coords = self.allLocations
+                         .map({CLLocationCoordinate2D(latitude: $0.coordinate.latitude,
+                                                      longitude: $0.coordinate.longitude)})
         self.polyline = MKPolyline(coordinates: &coords, count: coords.count)
     }
 
-    func loadMap() {
+    private func loadMap() {
         if self.allLocations.count > 0 {
             self.mapView.isHidden = false
-
             self.mapView.region = mapRegion()!
-
-            // Make the line(s!) on the map
             setupPolyline()
             self.mapView.add(self.polyline)
         } else {
@@ -161,47 +146,53 @@ class RouteViewController: UIViewController {
         }
     }
 
-    func startLocationUpdates() {
-        // Here, the location manager will be lazily instantiated
-        locationManager.startUpdatingLocation()
+    private func resetProperties(){
+        self.timer.invalidate()
+        self.allLocations = []
+        mapView.remove(self.polyline)
+        self.polyline = MKPolyline(coordinates: [], count: 0)
+        self.locationManagerTimeStamp = Date.distantFuture.timeIntervalSince1970
+        self.elapsedTime = 0
+        self.distance = 0.0
     }
 
+    // MARK: - Public Instance Methods
     func timerRunning() {
         self.elapsedTime += 1
         self.timeTravelled.text = parseTime(self.elapsedTime)
 
-        guard let newLocation = self.locationManager.location else {
-            print("Failed to create new location")
+        guard let currentLocation = self.allLocations.last else {
+            print("Failed to find current location")
             return
         }
-        //self.allLocations.append(newLocation)
 
-        self.currentSpeed.text = metersToMiles(distance: newLocation.speed*3600)
+        self.currentSpeed.text = metersToMiles(distance: currentLocation.speed*3600)
         self.distanceTravelled.text = metersToMiles(distance: self.distance)
         self.averageSpeed.text = metersToMiles(distance: self.averageVelocity*3600)
         loadMap()
     }
 
+    func locationIsValid(new: CLLocation?, old: CLLocation) -> Bool {
+        if new != nil, new!.horizontalAccuracy >= 0, new!.horizontalAccuracy <= 10{
+            let timeSinceLastUpdate = new!.timestamp.timeIntervalSince1970 - old.timestamp.timeIntervalSince1970
+            let timeSinceUpdatesStarted = new!.timestamp.timeIntervalSince1970 - self.locationManagerTimeStamp
+
+            if timeSinceLastUpdate > 0, timeSinceUpdatesStarted > 0{
+                    return true
+            }
+        }
+
+        return false
+    }
+
+    // MARK: - Actions
     @IBAction func startButtonPressed(_ sender: Any) {
-        self.timer.invalidate()
-        self.allLocations = []
-        mapView.remove(self.polyline)
-        self.polyline = MKPolyline(coordinates: [], count: 0)
-        self.elapsedTime = 0
-        self.distance = 0.0
-
-//        guard let startLocation = self.locationManager.location else {
-//            //TODO: Alert user that location services not working
-//            print("Failed to create start location")
-//            return
-//        }
-
-        //allLocations = [startLocation]       //How do I validate my first location?
-
+        resetProperties()
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self,
                                           selector: #selector(RouteViewController.timerRunning),
                                           userInfo: nil, repeats: true)
-        startLocationUpdates()
+        self.locationManagerTimeStamp = Date().timeIntervalSince1970
+        self.locationManager.startUpdatingLocation()
     }
 
     @IBAction func stopButtonPressed(_ sender: Any) {
@@ -210,6 +201,7 @@ class RouteViewController: UIViewController {
     }
 }
 
+// MARK: - Protocol Extensions
 extension RouteViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
         let polyline = overlay as! MKPolyline
@@ -229,13 +221,12 @@ extension RouteViewController: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         for location in locations {
-            if location.horizontalAccuracy < 20 {
-                //update distance
-                if self.allLocations.count > 0 {
-                    self.distance += location.distance(from: self.allLocations.last!)
-                }
-
-                //save location
+            if self.allLocations.count > 1, locationIsValid(new: location, old: self.allLocations.last!) {
+                self.distance += location.distance(from: self.allLocations.last!)
+                self.allLocations.append(location)
+            } else if self.allLocations.count <= 1,
+                      location.horizontalAccuracy >= 0,
+                      location.horizontalAccuracy <= 10 {
                 self.allLocations.append(location)
             }
         }
