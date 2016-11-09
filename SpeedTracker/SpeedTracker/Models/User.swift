@@ -2,7 +2,7 @@
 //  User.swift
 //  SpeedTracker
 //
-//  Created by John D Hearn on 11/8/16.
+//  Created by John D Hearn and Jake Dobson on 11/8/16.
 //  Copyright © 2016 Bastardized Productions. All rights reserved.
 //
 
@@ -11,6 +11,8 @@ import CoreLocation
 
 
 class User{
+    static let shared = User()
+
     private var carRoutes: [Route]
     private var bikeRoutes: [Route]
     private var runRoutes: [Route]
@@ -87,7 +89,7 @@ class User{
 
 
     //MARK: - Initializers
-    init(){
+    private init(){
         self.carRoutes  = []
         self.bikeRoutes = []
         self.runRoutes  = []
@@ -103,7 +105,6 @@ class User{
             self.runRoutes.append(route)
         }
     }
-
 
 //    private func averageSpeed(_ routes: [Route])-> Double{
 //        let totals = routes.reduce((0.0, 0)){ (result, route) in
