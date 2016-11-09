@@ -13,7 +13,7 @@ enum RouteType {
     case car, bike, run
 }
 
-class Route {
+class Route: NSObject {
     var timeElapsed: Int
     var distanceTravelled: Double
     var averageSpeed: Double {
@@ -21,7 +21,7 @@ class Route {
     }
     var locations: [CLLocation]
 
-    init(){
+    override init(){
         self.timeElapsed = 0
         self.distanceTravelled = 0.0
         self.locations = []
@@ -32,4 +32,20 @@ class Route {
         self.distanceTravelled = distanceTravelled
         self.locations = locations
     }
+
+    required init(coder aDecoder: NSCoder) {
+        self.timeElapsed = aDecoder.decodeObject(forKey: "timeElapsed") as! Int
+        self.distanceTravelled = aDecoder.decodeObject(forKey: "distanceTravelled") as! Double
+        self.locations = aDecoder.decodeObject(forKey: "locations") as! [CLLocation]
+    }
+
+}
+
+extension Route: NSCoding {
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(self.timeElapsed, forKey: "timeElapsed")
+        aCoder.encode(self.distanceTravelled, forKey: "distanceTravelled")
+        aCoder.encode(self.locations, forKey: "locations")
+    }
+
 }

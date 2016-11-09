@@ -8,14 +8,22 @@
 
 import Foundation
 import CoreLocation
+import CloudKit
 
 
-class User{
+typealias RouteDataCompletion = (Bool)->()
+typealias GetRouteDataCompletion = ([String:[Route]]?)->()
+
+
+class User: NSObject, NSCoding{
     static let shared = User()
 
     private var carRoutes: [Route]
     private var bikeRoutes: [Route]
     private var runRoutes: [Route]
+
+    private let container: CKContainer
+    private let database: CKDatabase
 
     //MARK: - Computed Properties
     var numberOfCarRoutes: Int {
@@ -89,13 +97,34 @@ class User{
 
 
     //MARK: - Initializers
-    private init(){
+    private override init(){
         self.carRoutes  = []
         self.bikeRoutes = []
         self.runRoutes  = []
+        self.container = CKContainer.default()
+        self.database = self.container.privateCloudDatabase
     }
 
-    //MARK: - Instance Methods
+    internal required init?(coder aDecoder: NSCoder) {
+        self.carRoutes  = aDecoder.decodeObject(forKey: "carRoutes") as! [Route]
+        self.bikeRoutes = aDecoder.decodeObject(forKey: "bikeRoutes") as! [Route]
+        self.runRoutes  = aDecoder.decodeObject(forKey: "runRoutes") as! [Route]
+        self.container = CKContainer.default()
+        self.database = self.container.privateCloudDatabase
+    }
+
+
+    //MARK: - Private Methods
+//    private func recordFor(_ savedData: Data) throws -> CKRecord? {
+//        let dataURL = URL.dataURL()
+//
+//        //guard let data =
+//        return nil
+//    }
+
+
+
+    //MARK: - Public Instance Methods
     func addRoute(route: Route, type: RouteType) {
         if type == .car {
             self.carRoutes.append(route)
@@ -106,11 +135,32 @@ class User{
         }
     }
 
-//    private func averageSpeed(_ routes: [Route])-> Double{
-//        let totals = routes.reduce((0.0, 0)){ (result, route) in
-//            return (result.0 + route.distanceTravelled,
-//                    result.1 + route.timeElapsed)
+//    func save(routeData: [String: [Route]], completion: @escaping RouteDataCompletion ){
+//        do{
+//            let savedData = NSKeyedArchiver.archivedData(withRootObject: routeData)
+//            let defaults = UserDefaults.standard
+//            defaults.set(savedData, forKey: "routeData")
+//
+//            if let record = try recordFor(savedData) {
+//                self.database.save(record, completionHandler: {(record, error) in
+//                    if error == nil && record != nil {
+//                        print("Success saving \(record)")
+//                        completion(true)
+//                    }
+//                })
+//            }
+//        } catch {
+//            print(error)
+//            completion(false)
 //        }
-//        return totals.0 / Double(totals.1)
 //    }
+
+    func encode(with aCoder: NSCoder) {
+        // I can't put this method in a protocol extension
+        // without making route properties public.
+        aCoder.encode(self.carRoutes, forKey: "carRoutes")
+        aCoder.encode(self.bikeRoutes, forKey: "bikeRoutes")
+        aCoder.encode(self.runRoutes, forKey: "runRoutes")
+    }
 }
+
