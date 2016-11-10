@@ -14,7 +14,7 @@ The following frameworks we used to build this app:
 - MapKit
 - CloudKit
 
-## Implementation Details:
+## Implementation Details
 We worked mostly with Core Location while building this app. It was useful for requesting location services/authorization, selecting the desired location accuracy and type of transport, gathering the current speed,  and deciding how often to regenerate data; to name a few. MapKit was used for displaying the user's location and drawing the user's route on screen. While user data is stored locally on their device, CloudKit is used as a backup as well as means to synchronize travel history across all of user's iCloud-enabled devices.
 
 ## About the Creators

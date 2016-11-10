@@ -209,14 +209,20 @@ class RouteViewController: UIViewController {
         User.shared.addRoute(route: completedRoute, type: User.shared.routeType, completion: { (success) in
             var message: String
             if success {
-                message = "Route data saved."
+                message = "Route data saved!"
             } else {
                 message = "There was an error attempting to save route data."
             }
-            let sheet = UIAlertController(title: "Route Completed", message: message, preferredStyle: .actionSheet)
-            let dismissAction   = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
-            sheet.addAction(dismissAction)
-            self.present(sheet, animated: true, completion: nil)
+            let actionSheet = UIAlertController(title: "Route Completed:", message: message, preferredStyle: .actionSheet)
+
+            let dismissViewAction = UIAlertAction(title: "Go Back to the Selection Screen", style: .default) { (action) in
+                self.dismiss(animated: true)
+            }
+
+            let cancelAction   = UIAlertAction(title: "Start Another Route", style: .default, handler: nil)
+            actionSheet.addAction(cancelAction)
+            actionSheet.addAction(dismissViewAction)
+            self.present(actionSheet, animated: true, completion: nil)
         })
 
     }
