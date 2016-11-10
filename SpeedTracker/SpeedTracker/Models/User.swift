@@ -6,6 +6,8 @@
 //  Copyright © 2016 Bastardized Productions. All rights reserved.
 //
 
+
+
 import Foundation
 import CoreLocation
 import CloudKit
@@ -14,24 +16,23 @@ import CloudKit
 typealias RouteDataCompletion = (Bool)->()
 typealias GetRouteDataCompletion = ([String:[Route]]?)->()
 
-
 class User {
     static let shared = User()
 
     private var carRoutes: [Route]{
         didSet{
-            save(routeData: self.routes) //, completion: RouteDataCompletion)
+            save(routeData: self.routes)
         }
     }
     private var bikeRoutes: [Route]{
         didSet{
-            save(routeData: self.routes) //, completion: RouteDataCompletion)
+            save(routeData: self.routes)
         }
     }
 
     private var runRoutes: [Route]{
         didSet{
-            save(routeData: self.routes) //, completion: RouteDataCompletion)
+            save(routeData: self.routes)
         }
     }
 
@@ -43,6 +44,8 @@ class User {
 
     private let container: CKContainer
     private let database: CKDatabase
+
+    var routeType: RouteType
 
     //MARK: - Computed Properties
     var numberOfCarRoutes: Int {
@@ -132,41 +135,78 @@ class User {
             self.runRoutes  = []
         }
         self.container = CKContainer.default()
-        self.database = self.container.privateCloudDatabase
+        self.database = self.container.publicCloudDatabase
+        self.routeType = .run
     }
 
     //MARK: - Public Instance Methods
-    func addRoute(route: Route, type: RouteType) {
+    func addRoute(route: Route, type: RouteType, completion: RouteDataCompletion) {
         if type == .car {
             self.carRoutes.append(route)
+            completion(true)
         } else if type == .bike {
             self.bikeRoutes.append(route)
+            completion(true)
         } else if type == .run {
             self.runRoutes.append(route)
+            completion(true)
+        } else {
+            print("Error adding route to user data.")
+            completion(false)
         }
     }
 
-    func save(routeData: [String: [Route]]){ //, completion: @escaping RouteDataCompletion ){
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        let documentsDirectory = paths[0]
+        let fullPath = documentsDirectory.appendingPathComponent("PersistentData")
+        return fullPath
+    }
 
-            let savedData = NSKeyedArchiver.archivedData(withRootObject: routeData)
+    func recordFor(_ savedData: Data) throws -> CKRecord{
+        let url = getDocumentsDirectory()
+        do{
+            try savedData.write(to: url)
+            let asset = CKAsset(fileURL: url)
+            let record = CKRecord(recordType: "RouteData")
+            record.setObject(asset, forKey: "asset")
+
+            return record
+        } catch {
+            print(error)
+            throw error
+        }
+    }
+
+    func saveToCloud(data: Data, completion: @escaping RouteDataCompletion ) {
+        do{
+            let record = try recordFor(data)
+            self.database.save(record, completionHandler: {(record, error) in
+                if error == nil && record != nil {
+                    print("Success saving \(record)")
+                    OperationQueue.main.addOperation { completion(true) }
+                } else {
+                    print(error)
+                    OperationQueue.main.addOperation { completion(false) }
+                }
+                
+            })
+        } catch {
+            print(error)
+        }
+    }
+
+    func save(routeData: [String: [Route]]){
+        let savedData = NSKeyedArchiver.archivedData(withRootObject: routeData)
         print(savedData)
-            let defaults = UserDefaults.standard
-            defaults.set(savedData, forKey: "routeData")
-            let success = defaults.synchronize()
-            print("Route data saved? \(success)")
-//        do{
-//            if let record = try recordFor(savedData) {
-//                self.database.save(record, completionHandler: {(record, error) in
-//                    if error == nil && record != nil {
-//                        print("Success saving \(record)")
-//                        completion(true)
-//                    }
-//                })
-//            }
-//        } catch {
-//            print(error)
-//            completion(false)
-//        }
+        let defaults = UserDefaults.standard
+        defaults.set(savedData, forKey: "routeData")
+        let success = defaults.synchronize()
+        print("Route data saved locally? \(success)")
+
+        saveToCloud(data: savedData, completion: { (success) in
+                print("Route data saved to cloud? \(success)")
+        })
     }
 }
 

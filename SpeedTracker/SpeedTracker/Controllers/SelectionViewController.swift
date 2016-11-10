@@ -15,7 +15,7 @@ class SelectionViewController: UIViewController {
     @IBOutlet weak var carGlyph: UIImageView!
 
 
-    let promptedVC = RouteViewController(nibName: "RouteViewController",
+    let routeVC = RouteViewController(nibName: "RouteViewController",
                                          bundle: nil)
 
     override func viewDidLoad() {
@@ -38,17 +38,20 @@ class SelectionViewController: UIViewController {
 
     @IBAction func walkImagePressed(_ sender: Any) {
         print("walk image pressed")
-        self.present(promptedVC, animated: true, completion: nil)
+        User.shared.routeType = .run
+        self.present(routeVC, animated: true, completion: nil)
     }
 
     @IBAction func bikeImagePressed(_ sender: Any) {
         print("bike image pressed")
-        self.present(promptedVC, animated: true, completion: nil)
+        User.shared.routeType = .bike
+        self.present(routeVC, animated: true, completion: nil)
     }
 
     @IBAction func carImagePressed(_ sender: Any) {
         print("car image pressed")
-        self.present(promptedVC, animated: true, completion: nil)
+        User.shared.routeType = .car
+        self.present(routeVC, animated: true, completion: nil)
     }
 
 }

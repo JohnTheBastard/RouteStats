@@ -23,17 +23,21 @@ class RouteViewController: UIViewController {
         var _locationManager = CLLocationManager()
         _locationManager.delegate = self
         if CLLocationManager.authorizationStatus() == .notDetermined {
-            _locationManager.requestAlwaysAuthorization()
+            _locationManager.requestWhenInUseAuthorization()
         }
         if CLLocationManager.locationServicesEnabled() {
             //This seems to help reduce bad initial location values.
             _locationManager.requestLocation()
         }
         _locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        _locationManager.activityType = .automotiveNavigation  //.fitness
-
+        if User.shared.routeType == .run || User.shared.routeType == .bike {
+            _locationManager.activityType = .fitness
+            _locationManager.distanceFilter = 10.0
+        } else {
+            _locationManager.activityType = .automotiveNavigation
+            _locationManager.distanceFilter = 20.0
+        }
         // Movement threshold for new events
-        _locationManager.distanceFilter = 10.0
         return _locationManager
     }()
 
@@ -202,10 +206,19 @@ class RouteViewController: UIViewController {
                                    distanceTravelled: self.distance,
                                    locations: self.allLocations)
 
-        User.shared.addRoute(route: completedRoute, type: .car)
-        //User.shared.save(routeData: User.shared.routes)
-        //TODO: call to cache route stats needs to go here
-        //TODO: Alert user data is saved
+        User.shared.addRoute(route: completedRoute, type: User.shared.routeType, completion: { (success) in
+            var message: String
+            if success {
+                message = "Route data saved."
+            } else {
+                message = "There was an error attempting to save route data."
+            }
+            let sheet = UIAlertController(title: "Route Completed", message: message, preferredStyle: .actionSheet)
+            let dismissAction   = UIAlertAction(title: "Dismiss", style: .cancel, handler: nil)
+            sheet.addAction(dismissAction)
+            self.present(sheet, animated: true, completion: nil)
+        })
+
     }
 
     @IBAction func swipeGestureRecognizer(_ sender: Any) {
