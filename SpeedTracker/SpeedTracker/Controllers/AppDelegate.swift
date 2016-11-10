@@ -22,17 +22,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let selectionVC = SelectionViewController(nibName: "SelectionViewController", bundle: nil)
         let statsVC = StatsViewController(nibName: "StatsViewController", bundle: nil)
 
-        let viewControllers = [selectionVC, statsVC]
-
-        tabBarController.viewControllers = viewControllers
+        tabBarController.viewControllers = [selectionVC, statsVC]
 
         selectionVC.tabBarItem = UITabBarItem(title: "Route", image: UIImage(named: "map-glyph"), tag: 0)
         statsVC.tabBarItem = UITabBarItem(title: "Stats", image: UIImage(named: "stats-glyph"), tag: 1)
 
         self.window = UIWindow()
-        
-        //let routeViewController = RouteViewController(nibName: "RouteViewController", bundle: nil)
-        //self.window?.rootViewController = routeViewController
+
         self.window?.rootViewController = tabBarController
         self.window?.makeKeyAndVisible()
 

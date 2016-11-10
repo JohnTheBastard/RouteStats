@@ -24,23 +24,24 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TRd-4N-9ky">
-                    <rect key="frame" x="69" y="28" width="237" height="29"/>
+                <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TRd-4N-9ky">
+                    <rect key="frame" x="69" y="28" width="237" height="31"/>
                     <constraints>
+                        <constraint firstAttribute="height" constant="30" id="7lR-AX-caw"/>
                         <constraint firstAttribute="width" constant="237" id="9b2-sJ-JbH"/>
                     </constraints>
                     <segments>
-                        <segment title="Walk"/>
-                        <segment title="Bike"/>
-                        <segment title="Car"/>
+                        <segment title="Walking"/>
+                        <segment title="Biking"/>
+                        <segment title="Driving"/>
                     </segments>
-                    <color key="tintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="tintColor" red="0.0" green="0.024791156070000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <action selector="statsSegmentedController:" destination="-1" eventType="valueChanged" id="oiR-QB-XCl"/>
                     </connections>
                 </segmentedControl>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QtT-wO-YKE">
-                    <rect key="frame" x="16" y="93" width="343" height="517"/>
+                    <rect key="frame" x="16" y="101" width="343" height="311"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Routes:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qa1-kF-01W">
                             <rect key="frame" x="8" y="8" width="163" height="50"/>
@@ -157,7 +158,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
-                    <color key="backgroundColor" red="0.42771975267379675" green="0.17400150401069517" blue="0.7592371323529411" alpha="0.5" colorSpace="deviceRGB"/>
+                    <color key="backgroundColor" red="0.20000000300000001" green="0.20000000300000001" blue="0.20000000300000001" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstItem="Qa1-kF-01W" firstAttribute="top" secondItem="QtT-wO-YKE" secondAttribute="top" constant="8" id="0OD-Ui-D1p"/>
                         <constraint firstItem="pZe-YT-ioY" firstAttribute="baseline" secondItem="Zz2-hI-Qaa" secondAttribute="baseline" id="3rS-UI-hNg"/>
@@ -182,6 +183,7 @@
                         <constraint firstItem="vDD-ET-wpk" firstAttribute="baseline" secondItem="s8k-02-E8s" secondAttribute="baseline" id="Pxh-tA-GkM"/>
                         <constraint firstItem="s8k-02-E8s" firstAttribute="leading" secondItem="Zz2-hI-Qaa" secondAttribute="leading" id="Toa-lj-Hn7"/>
                         <constraint firstItem="kpZ-9a-CLX" firstAttribute="top" secondItem="Qa1-kF-01W" secondAttribute="bottom" constant="8" id="VO5-nq-Rs0"/>
+                        <constraint firstAttribute="bottom" secondItem="pZe-YT-ioY" secondAttribute="bottom" constant="21" id="VZf-kI-4lm"/>
                         <constraint firstItem="Qa1-kF-01W" firstAttribute="baseline" secondItem="8lo-9y-5UJ" secondAttribute="baseline" id="Ydp-4x-Lr1"/>
                         <constraint firstAttribute="trailing" secondItem="8lo-9y-5UJ" secondAttribute="trailing" constant="8" id="Yib-jD-TZB"/>
                         <constraint firstItem="kpZ-9a-CLX" firstAttribute="baseline" secondItem="3bR-oj-3nM" secondAttribute="baseline" constant="-26" id="Zpk-Gn-pXX"/>
@@ -208,7 +210,7 @@
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Results" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lsO-WC-9LD">
-                    <rect key="frame" x="149" y="64" width="77" height="27"/>
+                    <rect key="frame" x="149" y="66" width="77" height="26.5"/>
                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -217,14 +219,13 @@
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="TRd-4N-9ky" firstAttribute="top" secondItem="fGS-sm-3q5" secondAttribute="top" constant="28" id="8rW-tb-5N4"/>
-                <constraint firstItem="QtT-wO-YKE" firstAttribute="top" secondItem="lsO-WC-9LD" secondAttribute="bottom" constant="2" id="D6I-jr-5IK"/>
-                <constraint firstItem="QtT-wO-YKE" firstAttribute="top" secondItem="fGS-sm-3q5" secondAttribute="top" constant="93" id="LAK-DA-LGA"/>
+                <constraint firstItem="QtT-wO-YKE" firstAttribute="top" secondItem="lsO-WC-9LD" secondAttribute="bottom" constant="8" id="D6I-jr-5IK"/>
                 <constraint firstItem="TRd-4N-9ky" firstAttribute="centerX" secondItem="fGS-sm-3q5" secondAttribute="centerX" id="LIn-XX-gkn"/>
                 <constraint firstItem="lsO-WC-9LD" firstAttribute="top" secondItem="TRd-4N-9ky" secondAttribute="bottom" constant="8" id="Mj9-x3-iy7"/>
+                <constraint firstItem="lsO-WC-9LD" firstAttribute="centerX" secondItem="fGS-sm-3q5" secondAttribute="centerX" id="Q2i-2m-tL9"/>
                 <constraint firstItem="QtT-wO-YKE" firstAttribute="centerX" secondItem="fGS-sm-3q5" secondAttribute="centerX" id="TVW-k4-Uu7"/>
-                <constraint firstAttribute="bottom" secondItem="QtT-wO-YKE" secondAttribute="bottom" constant="57" id="VSV-Sk-nwl"/>
-                <constraint firstItem="lsO-WC-9LD" firstAttribute="leading" secondItem="fGS-sm-3q5" secondAttribute="leading" constant="149" id="ae0-47-pvw"/>
-                <constraint firstAttribute="trailing" secondItem="lsO-WC-9LD" secondAttribute="trailing" constant="149" id="ycf-sv-Lho"/>
+                <constraint firstAttribute="trailing" secondItem="QtT-wO-YKE" secondAttribute="trailing" constant="16" id="hTe-ZD-gWc"/>
+                <constraint firstItem="QtT-wO-YKE" firstAttribute="leading" secondItem="fGS-sm-3q5" secondAttribute="leading" constant="16" id="p3X-Z2-me6"/>
             </constraints>
             <point key="canvasLocation" x="121.5" y="194.5"/>
         </view>

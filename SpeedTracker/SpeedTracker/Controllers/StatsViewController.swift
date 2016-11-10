@@ -10,7 +10,8 @@ import UIKit
 
 class StatsViewController: UIViewController {
 
-    
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+
     @IBOutlet weak var routesLabel: UILabel!
     @IBOutlet weak var averageDistanceLabel: UILabel!
     @IBOutlet weak var totalDistanceLabel: UILabel!
@@ -19,6 +20,7 @@ class StatsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        //segmentedControl.contentMode = UIViewContentMode.scaleToFill
         UIApplication.shared.statusBarStyle = .lightContent
     }
 
