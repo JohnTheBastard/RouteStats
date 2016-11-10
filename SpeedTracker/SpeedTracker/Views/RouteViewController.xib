@@ -117,6 +117,7 @@
                 </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="r4C-GG-S0P" firstAttribute="leading" secondItem="WBo-H9-HUz" secondAttribute="leading" constant="8" id="4TA-mi-5SA"/>
                 <constraint firstItem="arx-is-g3U" firstAttribute="leading" secondItem="WBo-H9-HUz" secondAttribute="leading" constant="8" id="5d6-5t-kzm"/>
@@ -153,7 +154,15 @@
                 <constraint firstItem="XAI-l7-Gxt" firstAttribute="leading" secondItem="j8G-Iz-lk7" secondAttribute="trailing" constant="8" id="v9U-ly-3Lh"/>
                 <constraint firstItem="9Pk-Bs-OVM" firstAttribute="leading" secondItem="r4C-GG-S0P" secondAttribute="trailing" constant="8" id="xXh-pq-k8f"/>
             </constraints>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="5wu-OG-vO7" appends="YES" id="QKk-A1-6tm"/>
+            </connections>
             <point key="canvasLocation" x="-182.5" y="-260.5"/>
         </view>
+        <swipeGestureRecognizer direction="down" id="5wu-OG-vO7">
+            <connections>
+                <action selector="swipeGestureRecognizer:" destination="-1" id="ea4-QR-beQ"/>
+            </connections>
+        </swipeGestureRecognizer>
     </objects>
 </document>

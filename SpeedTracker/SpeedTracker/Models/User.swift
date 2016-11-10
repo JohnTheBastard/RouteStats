@@ -15,12 +15,22 @@ typealias RouteDataCompletion = (Bool)->()
 typealias GetRouteDataCompletion = ([String:[Route]]?)->()
 
 
-class User: NSObject, NSCoding{
+class User {
     static let shared = User()
 
-    private var carRoutes: [Route]
+    private var carRoutes: [Route]{
+        didSet{
+            //save(routeData: self.routes) //, completion: RouteDataCompletion)
+        }
+    }
     private var bikeRoutes: [Route]
     private var runRoutes: [Route]
+
+    var routes: [String: [Route]]{
+        return [ "carRoutes": self.carRoutes,
+                 "bikeRoutes": self.bikeRoutes,
+                 "runRoutes": self.runRoutes ]
+    }
 
     private let container: CKContainer
     private let database: CKDatabase
@@ -97,21 +107,32 @@ class User: NSObject, NSCoding{
 
 
     //MARK: - Initializers
-    private override init(){
-        self.carRoutes  = []
-        self.bikeRoutes = []
-        self.runRoutes  = []
+    private init(){
+        print("Trying to initialize from saved data...")
+        let defaults = UserDefaults.standard
+        var routeData: [String: [Route]]
+        if let savedData = defaults.object(forKey: "routeData") as? Data {
+            routeData = NSKeyedUnarchiver.unarchiveObject(with: savedData) as! [String: [Route]]
+            self.carRoutes  = routeData["carRoutes"]!
+            self.bikeRoutes = routeData["bikeRoutes"]!
+            self.runRoutes  = routeData["runRoutes"]!
+            print("Initialized with saved data!")
+        } else {
+            self.carRoutes  = []
+            self.bikeRoutes = []
+            self.runRoutes  = []
+        }
         self.container = CKContainer.default()
         self.database = self.container.privateCloudDatabase
     }
 
-    internal required init?(coder aDecoder: NSCoder) {
-        self.carRoutes  = aDecoder.decodeObject(forKey: "carRoutes") as! [Route]
-        self.bikeRoutes = aDecoder.decodeObject(forKey: "bikeRoutes") as! [Route]
-        self.runRoutes  = aDecoder.decodeObject(forKey: "runRoutes") as! [Route]
-        self.container = CKContainer.default()
-        self.database = self.container.privateCloudDatabase
-    }
+//    internal required init?(coder aDecoder: NSCoder) {
+//        self.carRoutes  = aDecoder.decodeObject(forKey: "carRoutes") as! [Route]
+//        self.bikeRoutes = aDecoder.decodeObject(forKey: "bikeRoutes") as! [Route]
+//        self.runRoutes  = aDecoder.decodeObject(forKey: "runRoutes") as! [Route]
+//        self.container = CKContainer.default()
+//        self.database = self.container.privateCloudDatabase
+//    }
 
 
     //MARK: - Private Methods
@@ -135,12 +156,15 @@ class User: NSObject, NSCoding{
         }
     }
 
-//    func save(routeData: [String: [Route]], completion: @escaping RouteDataCompletion ){
+    func save(routeData: [String: [Route]]){ //, completion: @escaping RouteDataCompletion ){
+
+            let savedData = NSKeyedArchiver.archivedData(withRootObject: routeData)
+        print(savedData)
+            let defaults = UserDefaults.standard
+            defaults.set(savedData, forKey: "routeData")
+            let success = defaults.synchronize()
+            print("Route data saved? \(success)")
 //        do{
-//            let savedData = NSKeyedArchiver.archivedData(withRootObject: routeData)
-//            let defaults = UserDefaults.standard
-//            defaults.set(savedData, forKey: "routeData")
-//
 //            if let record = try recordFor(savedData) {
 //                self.database.save(record, completionHandler: {(record, error) in
 //                    if error == nil && record != nil {
@@ -153,14 +177,14 @@ class User: NSObject, NSCoding{
 //            print(error)
 //            completion(false)
 //        }
-//    }
-
-    func encode(with aCoder: NSCoder) {
-        // I can't put this method in a protocol extension
-        // without making route properties public.
-        aCoder.encode(self.carRoutes, forKey: "carRoutes")
-        aCoder.encode(self.bikeRoutes, forKey: "bikeRoutes")
-        aCoder.encode(self.runRoutes, forKey: "runRoutes")
     }
+
+//    func encode(with aCoder: NSCoder) {
+//        // I can't put this method in a protocol extension
+//        // without making route properties public.
+//        aCoder.encode(self.carRoutes, forKey: "carRoutes")
+//        aCoder.encode(self.bikeRoutes, forKey: "bikeRoutes")
+//        aCoder.encode(self.runRoutes, forKey: "runRoutes")
+//    }
 }
 

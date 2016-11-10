@@ -33,10 +33,12 @@ class Route: NSObject {
         self.locations = locations
     }
 
-    required init(coder aDecoder: NSCoder) {
+    required init?(coder aDecoder: NSCoder) {
+        print("\(aDecoder)")
         self.timeElapsed = aDecoder.decodeObject(forKey: "timeElapsed") as! Int
         self.distanceTravelled = aDecoder.decodeObject(forKey: "distanceTravelled") as! Double
         self.locations = aDecoder.decodeObject(forKey: "locations") as! [CLLocation]
+        super.init()
     }
 
 }

@@ -11,15 +11,93 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SelectionViewController" customModule="SpeedTracker" customModuleProvider="target">
             <connections>
+                <outlet property="bicycleGlyph" destination="5m7-yK-r3Z" id="WQS-jA-YFk"/>
+                <outlet property="carGlyph" destination="vkf-rP-mrG" id="4AS-uD-B80"/>
                 <outlet property="view" destination="Gfy-Qf-I8C" id="9iJ-54-JvP"/>
+                <outlet property="walkingGlyph" destination="RGt-Sj-sT5" id="HAY-9p-wkB"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="Gfy-Qf-I8C">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <subviews>
+                <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="walking-glyph" translatesAutoresizingMaskIntoConstraints="NO" id="RGt-Sj-sT5">
+                    <rect key="frame" x="124" y="82" width="128" height="128"/>
+                    <color key="backgroundColor" red="0.99215686270000003" green="0.51764705879999995" blue="0.21176470589999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="128" id="86x-5B-sP1"/>
+                        <constraint firstAttribute="height" constant="128" id="GS7-iS-rb0"/>
+                    </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="te6-sQ-w19" appends="YES" id="wgM-lc-uvu"/>
+                    </connections>
+                </imageView>
+                <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bicycle-glyph" highlighted="YES" translatesAutoresizingMaskIntoConstraints="NO" id="5m7-yK-r3Z">
+                    <rect key="frame" x="124" y="218" width="128" height="128"/>
+                    <color key="backgroundColor" red="0.8468052828" green="1" blue="0.30171232329999997" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="tintColor" red="0.27450980390000002" green="0.78823529410000004" blue="0.45098039220000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="128" id="F8j-0B-4ZL"/>
+                        <constraint firstAttribute="width" constant="128" id="YUk-1m-Hg3"/>
+                    </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="ikG-W7-f1K" appends="YES" id="S02-eo-OYq"/>
+                    </connections>
+                </imageView>
+                <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="car-glyph" translatesAutoresizingMaskIntoConstraints="NO" id="vkf-rP-mrG">
+                    <rect key="frame" x="124" y="354" width="128" height="128"/>
+                    <color key="backgroundColor" red="1" green="1" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
+                    <gestureRecognizers/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="128" id="5Ad-vc-VqP"/>
+                        <constraint firstAttribute="height" constant="128" id="9p2-ZZ-abz"/>
+                    </constraints>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="Til-nc-gCz" appends="YES" id="lcP-iD-M0d"/>
+                    </connections>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Your Trip" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AWu-oo-daH">
+                    <rect key="frame" x="121" y="28" width="134" height="29"/>
+                    <fontDescription key="fontDescription" name="HelveticaNeue-CondensedBold" family="Helvetica Neue" pointSize="24"/>
+                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="AWu-oo-daH" firstAttribute="top" secondItem="Gfy-Qf-I8C" secondAttribute="top" constant="28" id="9jT-Ed-YBT"/>
+                <constraint firstItem="AWu-oo-daH" firstAttribute="centerX" secondItem="Gfy-Qf-I8C" secondAttribute="centerX" id="GIc-jH-RTN"/>
+                <constraint firstItem="RGt-Sj-sT5" firstAttribute="top" secondItem="AWu-oo-daH" secondAttribute="bottom" constant="25" id="M0j-Ii-eRN"/>
+                <constraint firstItem="5m7-yK-r3Z" firstAttribute="top" secondItem="RGt-Sj-sT5" secondAttribute="bottom" constant="8" id="Nfb-Eg-7IR"/>
+                <constraint firstItem="vkf-rP-mrG" firstAttribute="centerX" secondItem="Gfy-Qf-I8C" secondAttribute="centerX" id="VRV-6s-C0s"/>
+                <constraint firstItem="vkf-rP-mrG" firstAttribute="top" secondItem="5m7-yK-r3Z" secondAttribute="bottom" constant="8" id="hgd-Lj-EjV"/>
+                <constraint firstItem="5m7-yK-r3Z" firstAttribute="centerX" secondItem="Gfy-Qf-I8C" secondAttribute="centerX" id="iVH-BJ-1Bh"/>
+                <constraint firstItem="RGt-Sj-sT5" firstAttribute="centerX" secondItem="Gfy-Qf-I8C" secondAttribute="centerX" id="nEz-qX-Ezg"/>
+            </constraints>
             <point key="canvasLocation" x="-136" y="-91"/>
         </view>
+        <tapGestureRecognizer id="te6-sQ-w19" userLabel="walkingGestureRecognizer">
+            <connections>
+                <action selector="walkImagePressed:" destination="-1" id="PD0-ba-0nE"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="ikG-W7-f1K" userLabel="bikingGestureRecognizer">
+            <connections>
+                <action selector="bikeImagePressed:" destination="-1" id="3Hz-MJ-sX5"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="Til-nc-gCz" userLabel="carGestureRcognizer">
+            <connections>
+                <action selector="carImagePressed:" destination="-1" id="ryN-hX-q3V"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
+    <resources>
+        <image name="bicycle-glyph" width="512" height="512"/>
+        <image name="car-glyph" width="512" height="512"/>
+        <image name="walking-glyph" width="512" height="512"/>
+    </resources>
 </document>

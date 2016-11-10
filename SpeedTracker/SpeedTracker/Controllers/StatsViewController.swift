@@ -10,26 +10,49 @@ import UIKit
 
 class StatsViewController: UIViewController {
 
+    
+    @IBOutlet weak var routesLabel: UILabel!
+    @IBOutlet weak var averageDistanceLabel: UILabel!
+    @IBOutlet weak var totalDistanceLabel: UILabel!
+    @IBOutlet weak var averageSpeedLabel: UILabel!
+    @IBOutlet weak var totalTimeLabel: UILabel!
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        UIApplication.shared.statusBarStyle = .lightContent
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    @IBAction func statsSegmentedController(_ sender: Any) {
+        switch (sender as AnyObject).selectedSegmentIndex {
+        case 0:
+            print("walking tab opened")
+
+            routesLabel.text = String(User.shared.numberOfRunRoutes)
+            averageDistanceLabel.text = String(User.shared.averageRunDistance)
+            totalDistanceLabel.text = String(User.shared.totalRunDistance)
+            averageSpeedLabel.text = String(User.shared.averageRunSpeed)
+            totalTimeLabel.text = String(User.shared.totalRunElapsedTime)
+
+        case 1:
+            print("biking tab opened")
+
+            routesLabel.text = String(User.shared.numberOfBikeRoutes)
+            averageDistanceLabel.text = String(User.shared.averageBikeDistance)
+            totalDistanceLabel.text = String(User.shared.totalBikeDistance)
+            averageSpeedLabel.text = String(User.shared.averageBikeSpeed)
+            totalTimeLabel.text = String(User.shared.totalBikeElapsedTime)
+
+        case 2:
+            print("driving tab opened")
+
+            routesLabel.text = String(User.shared.numberOfCarRoutes)
+            averageDistanceLabel.text = String(User.shared.averageCarDistance)
+            totalDistanceLabel.text = String(User.shared.totalCarDistance)
+            averageSpeedLabel.text = String(User.shared.averageCarSpeed)
+            totalTimeLabel.text = String(User.shared.totalCarElapsedTime)
+            
+        default:
+            break
+        }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
