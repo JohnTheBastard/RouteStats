@@ -203,7 +203,7 @@ class RouteViewController: UIViewController {
                                    locations: self.allLocations)
 
         User.shared.addRoute(route: completedRoute, type: .car)
-        User.shared.save(routeData: User.shared.routes)
+        //User.shared.save(routeData: User.shared.routes)
         //TODO: call to cache route stats needs to go here
         //TODO: Alert user data is saved
     }

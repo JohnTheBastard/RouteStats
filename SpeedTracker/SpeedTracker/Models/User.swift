@@ -20,11 +20,20 @@ class User {
 
     private var carRoutes: [Route]{
         didSet{
-            //save(routeData: self.routes) //, completion: RouteDataCompletion)
+            save(routeData: self.routes) //, completion: RouteDataCompletion)
         }
     }
-    private var bikeRoutes: [Route]
-    private var runRoutes: [Route]
+    private var bikeRoutes: [Route]{
+        didSet{
+            save(routeData: self.routes) //, completion: RouteDataCompletion)
+        }
+    }
+
+    private var runRoutes: [Route]{
+        didSet{
+            save(routeData: self.routes) //, completion: RouteDataCompletion)
+        }
+    }
 
     var routes: [String: [Route]]{
         return [ "carRoutes": self.carRoutes,
@@ -126,25 +135,6 @@ class User {
         self.database = self.container.privateCloudDatabase
     }
 
-//    internal required init?(coder aDecoder: NSCoder) {
-//        self.carRoutes  = aDecoder.decodeObject(forKey: "carRoutes") as! [Route]
-//        self.bikeRoutes = aDecoder.decodeObject(forKey: "bikeRoutes") as! [Route]
-//        self.runRoutes  = aDecoder.decodeObject(forKey: "runRoutes") as! [Route]
-//        self.container = CKContainer.default()
-//        self.database = self.container.privateCloudDatabase
-//    }
-
-
-    //MARK: - Private Methods
-//    private func recordFor(_ savedData: Data) throws -> CKRecord? {
-//        let dataURL = URL.dataURL()
-//
-//        //guard let data =
-//        return nil
-//    }
-
-
-
     //MARK: - Public Instance Methods
     func addRoute(route: Route, type: RouteType) {
         if type == .car {
@@ -178,13 +168,5 @@ class User {
 //            completion(false)
 //        }
     }
-
-//    func encode(with aCoder: NSCoder) {
-//        // I can't put this method in a protocol extension
-//        // without making route properties public.
-//        aCoder.encode(self.carRoutes, forKey: "carRoutes")
-//        aCoder.encode(self.bikeRoutes, forKey: "bikeRoutes")
-//        aCoder.encode(self.runRoutes, forKey: "runRoutes")
-//    }
 }
 
