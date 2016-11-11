@@ -74,9 +74,11 @@ class User {
     func computeStatsFor(type: RouteType) -> [String: Double] {
         var routes: [Route]
 
-        if      type == .run  { routes = self.runRoutes  }
-        else if type == .bike { routes = self.bikeRoutes }
-        else                  { routes = self.carRoutes  }
+        switch type{
+            case .run:  routes = self.runRoutes
+            case .bike: routes = self.bikeRoutes
+            case .car:  routes = self.carRoutes
+        }
 
         let numberOfRoutes = routes.count
         let totalElapsedTime = routes.reduce(0){ (result, route) in
@@ -101,18 +103,10 @@ class User {
     }
 
     func addRoute(route: Route, type: RouteType, completion: RouteDataCompletion) {
-        if type == .car {
-            self.carRoutes.append(route)
-            completion(true)
-        } else if type == .bike {
-            self.bikeRoutes.append(route)
-            completion(true)
-        } else if type == .run {
-            self.runRoutes.append(route)
-            completion(true)
-        } else {
-            print("Error adding route to user data.")
-            completion(false)
+        switch type{
+            case .run:  self.carRoutes.append(route);  completion(true)
+            case .bike: self.bikeRoutes.append(route); completion(true)
+            case .car:  self.runRoutes.append(route);  completion(true)
         }
     }
 
