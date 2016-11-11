@@ -6,8 +6,6 @@
 //  Copyright © 2016 Bastardized Productions. All rights reserved.
 //
 
-
-
 import Foundation
 import CoreLocation
 import CloudKit
@@ -67,6 +65,17 @@ class User {
         self.container = CKContainer.default()
         self.database = self.container.publicCloudDatabase
         self.routeType = .run
+
+        print("Looking for cloud data...")
+        var cloudRoutes = [String: [Route]]()
+        fetchFromCloud( completion: { (routes) in
+            if let routes = routes {
+                cloudRoutes = routes
+            } else {
+                print("Error: no data in the cloud!")
+            }
+        })
+        print("\(cloudRoutes)")
     }
 
     //MARK: - Public Instance Methods
@@ -89,7 +98,15 @@ class User {
         }
         let averageSpeed = totalDistance / Double( totalElapsedTime )
         let averageDistance = totalDistance / Double(numberOfRoutes)
-        let averageElapsedTime = Double(totalElapsedTime / numberOfRoutes)
+        print("totalElapsedTime: \(totalElapsedTime)\nnumberOfRoutes: \(numberOfRoutes) ")
+
+        var averageElapsedTime: Double{
+            if numberOfRoutes == 0 {
+                return 0.0
+            } else {
+                return Double(totalElapsedTime / numberOfRoutes)
+            }
+        }
 
         let stats =
             [ "numberOfRoutes":     Double(numberOfRoutes),
@@ -104,9 +121,9 @@ class User {
 
     func addRoute(route: Route, type: RouteType, completion: RouteDataCompletion) {
         switch type{
-            case .run:  self.carRoutes.append(route);  completion(true)
+            case .run:  self.runRoutes.append(route);  completion(true)
             case .bike: self.bikeRoutes.append(route); completion(true)
-            case .car:  self.runRoutes.append(route);  completion(true)
+            case .car:  self.carRoutes.append(route);  completion(true)
         }
     }
 
@@ -147,6 +164,51 @@ class User {
             })
         } catch {
             print(error)
+        }
+    }
+
+    func fetchFromCloud(completion: @escaping GetRouteDataCompletion) {
+        let query = CKQuery(recordType: "routeData", predicate: NSPredicate(value: true) )
+        let sortDescriptor = NSSortDescriptor(key: "createdAt", ascending: true)
+        query.sortDescriptors = [sortDescriptor]
+
+        self.database.perform(query, inZoneWith: nil) { (records, error) in
+            if error == nil {
+                if let records = records{
+                    var fetchedData = [ [String:[Route]] ]()
+                    for record in records{
+                        print("Creation Date: \(record.creationDate?.description)")
+                    }
+                    if records.count > 1 {
+                        let queue = OperationQueue()
+                        for ii in 0..<records.count-1 {
+                            let operation = {
+                                self.database.delete(withRecordID: records[ii].recordID,
+                                                     completionHandler: { (recordID, error) in
+                                print(error)
+                                })
+                            }
+                            queue.addOperation(operation)
+                        }
+                    }
+
+                    guard let asset = records.last?["asset"] as? CKAsset else { return }
+
+                    let url = asset.fileURL
+                    do{
+                        let routeData = try Data(contentsOf: url)
+
+                        fetchedData.append( NSKeyedUnarchiver.unarchiveObject(with: routeData) as! [String : [Route]] )
+
+                    } catch {
+                        print(error)
+                        return
+                    }
+                    OperationQueue.main.addOperation { completion(fetchedData.last) }
+                }
+            } else {
+                print(error)
+            }
         }
     }
 
