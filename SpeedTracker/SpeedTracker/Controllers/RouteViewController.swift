@@ -75,34 +75,6 @@ class RouteViewController: UIViewController {
         self.locationManager.stopUpdatingLocation()
     }
 
-    // MARK: - Private Helper Methods
-    private func leftPad(_ number: Int) -> String{
-        var stringified = String(number)
-        if stringified.characters.count < 2 {
-            stringified = "0" + stringified
-        }
-        return stringified
-    }
-
-    private func parseTime(_ time: Int) -> String{
-        let mmss = time % 3600           // mod away completed hours for minutes and seconds.
-        let hh = (time - mmss) / 3600    // calculate completed hours.
-        let ss = time % 60               // mod away completed minutes for seconds.
-        let mm = (mmss - ss) / 60        // calculate completed minutes
-
-        var timeString = leftPad(mm) + ":" + leftPad(ss)
-        if hh > 0 {
-            timeString = leftPad(hh) + ":" +  timeString
-        }
-        return timeString
-    }
-
-    private func metersToMiles(distance: Double) -> String{
-        let metersInAMile = 1609.344
-        let miles = distance / metersInAMile
-        return String(format: "%.2f", miles)
-
-    }
 
     private func mapRegion() -> MKCoordinateRegion? {
         if let initialLoc = self.allLocations.first?.coordinate {
@@ -163,16 +135,16 @@ class RouteViewController: UIViewController {
     // MARK: - Public Instance Methods
     func timerRunning() {
         self.elapsedTime += 1
-        self.timeTravelled.text = parseTime(self.elapsedTime)
+        self.timeTravelled.text = Utilities.shared.parseTime(self.elapsedTime)
 
         guard let currentLocation = self.allLocations.last else {
             print("Failed to find current location")
             return
         }
 
-        self.currentSpeed.text = metersToMiles(distance: currentLocation.speed*3600)
-        self.distanceTravelled.text = metersToMiles(distance: self.distance)
-        self.averageSpeed.text = metersToMiles(distance: self.averageVelocity*3600)
+        self.currentSpeed.text = Utilities.shared.metersToMiles(currentLocation.speed * 3600)
+        self.distanceTravelled.text = Utilities.shared.metersToMiles(self.distance)
+        self.averageSpeed.text = Utilities.shared.metersToMiles(self.averageVelocity * 3600)
         loadMap()
     }
 

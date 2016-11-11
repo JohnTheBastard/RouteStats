@@ -30,28 +30,28 @@ class StatsViewController: UIViewController {
             print("walking tab opened")
 
             routesLabel.text = String(User.shared.numberOfRunRoutes)
-            averageDistanceLabel.text = String(User.shared.averageRunDistance)
-            totalDistanceLabel.text = String(User.shared.totalRunDistance)
-            averageSpeedLabel.text = String(User.shared.averageRunSpeed)
-            totalTimeLabel.text = String(User.shared.totalRunElapsedTime)
+            averageDistanceLabel.text = Utilities.shared.metersToMiles(User.shared.averageRunDistance)
+            totalDistanceLabel.text = Utilities.shared.metersToMiles(User.shared.totalRunDistance)
+            averageSpeedLabel.text = Utilities.shared.metersToMiles( 3600 * User.shared.averageRunSpeed)
+            totalTimeLabel.text = Utilities.shared.parseTime(User.shared.totalRunElapsedTime)
 
         case 1:
             print("biking tab opened")
 
             routesLabel.text = String(User.shared.numberOfBikeRoutes)
-            averageDistanceLabel.text = String(User.shared.averageBikeDistance)
-            totalDistanceLabel.text = String(User.shared.totalBikeDistance)
-            averageSpeedLabel.text = String(User.shared.averageBikeSpeed)
+            averageDistanceLabel.text = Utilities.shared.metersToMiles(User.shared.averageBikeDistance)
+            totalDistanceLabel.text = Utilities.shared.metersToMiles(User.shared.totalBikeDistance)
+            averageSpeedLabel.text = Utilities.shared.metersToMiles( 3600 * User.shared.averageBikeSpeed)
             totalTimeLabel.text = String(User.shared.totalBikeElapsedTime)
 
         case 2:
             print("driving tab opened")
 
             routesLabel.text = String(User.shared.numberOfCarRoutes)
-            averageDistanceLabel.text = String(User.shared.averageCarDistance)
-            totalDistanceLabel.text = String(User.shared.totalCarDistance)
-            averageSpeedLabel.text = String(User.shared.averageCarSpeed)
-            totalTimeLabel.text = String(User.shared.totalCarElapsedTime)
+            averageDistanceLabel.text = Utilities.shared.metersToMiles(User.shared.averageCarDistance)
+            totalDistanceLabel.text = Utilities.shared.metersToMiles(User.shared.totalCarDistance)
+            averageSpeedLabel.text = Utilities.shared.metersToMiles( 3600 * User.shared.averageCarSpeed)
+            totalTimeLabel.text = Utilities.shared.parseTime(User.shared.totalCarElapsedTime)
             
         default:
             break

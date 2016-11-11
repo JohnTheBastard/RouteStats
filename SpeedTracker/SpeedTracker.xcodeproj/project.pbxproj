@@ -15,6 +15,7 @@
 		F258EC581DD10426000D029D /* StatsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F258EC561DD10426000D029D /* StatsViewController.xib */; };
 		F25CC0911DD0F7EE00A6786D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25CC08F1DD0F7EE00A6786D /* AppDelegate.swift */; };
 		F25CC0941DD0F80000A6786D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F25CC0931DD0F80000A6786D /* Assets.xcassets */; };
+		F274BC761DD540E400C7032D /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = F274BC751DD540E400C7032D /* Utilities.swift */; };
 		F28637BD1DD1484D004171D9 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28637BC1DD1484D004171D9 /* Extensions.swift */; };
 		F28637BF1DD150E6004171D9 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28637BE1DD150E6004171D9 /* Route.swift */; };
 		F2A15A7B1DD250E000B467A8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A15A7A1DD250E000B467A8 /* MapKit.framework */; };
@@ -33,6 +34,7 @@
 		F25CC0831DD0F5AF00A6786D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F25CC08F1DD0F7EE00A6786D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Controllers/AppDelegate.swift; sourceTree = "<group>"; };
 		F25CC0931DD0F80000A6786D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Views/Assets.xcassets; sourceTree = "<group>"; };
+		F274BC751DD540E400C7032D /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Utilities.swift; path = Support/Utilities.swift; sourceTree = "<group>"; };
 		F28637BC1DD1484D004171D9 /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Extensions.swift; path = Support/Extensions.swift; sourceTree = "<group>"; };
 		F28637BE1DD150E6004171D9 /* Route.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Route.swift; path = Models/Route.swift; sourceTree = "<group>"; };
 		F2A15A7A1DD250E000B467A8 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
@@ -117,8 +119,9 @@
 		F25CC08E1DD0F6AB00A6786D /* Support */ = {
 			isa = PBXGroup;
 			children = (
-				F25CC0831DD0F5AF00A6786D /* Info.plist */,
 				F28637BC1DD1484D004171D9 /* Extensions.swift */,
+				F274BC751DD540E400C7032D /* Utilities.swift */,
+				F25CC0831DD0F5AF00A6786D /* Info.plist */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -223,6 +226,7 @@
 				F28637BF1DD150E6004171D9 /* Route.swift in Sources */,
 				F258EC531DD103F6000D029D /* StatsViewController.swift in Sources */,
 				F25CC0911DD0F7EE00A6786D /* AppDelegate.swift in Sources */,
+				F274BC761DD540E400C7032D /* Utilities.swift in Sources */,
 				F2A15A7E1DD2B25900B467A8 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
