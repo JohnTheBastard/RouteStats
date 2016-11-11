@@ -25,36 +25,23 @@ class StatsViewController: UIViewController {
     }
 
     @IBAction func statsSegmentedController(_ sender: Any) {
+        var routeType: RouteType
         switch (sender as AnyObject).selectedSegmentIndex {
-        case 0:
-            print("walking tab opened")
-
-            routesLabel.text = String(User.shared.numberOfRunRoutes)
-            averageDistanceLabel.text = Utilities.shared.metersToMiles(User.shared.averageRunDistance)
-            totalDistanceLabel.text = Utilities.shared.metersToMiles(User.shared.totalRunDistance)
-            averageSpeedLabel.text = Utilities.shared.metersToMiles( 3600 * User.shared.averageRunSpeed)
-            totalTimeLabel.text = Utilities.shared.parseTime(User.shared.totalRunElapsedTime)
-
-        case 1:
-            print("biking tab opened")
-
-            routesLabel.text = String(User.shared.numberOfBikeRoutes)
-            averageDistanceLabel.text = Utilities.shared.metersToMiles(User.shared.averageBikeDistance)
-            totalDistanceLabel.text = Utilities.shared.metersToMiles(User.shared.totalBikeDistance)
-            averageSpeedLabel.text = Utilities.shared.metersToMiles( 3600 * User.shared.averageBikeSpeed)
-            totalTimeLabel.text = String(User.shared.totalBikeElapsedTime)
-
-        case 2:
-            print("driving tab opened")
-
-            routesLabel.text = String(User.shared.numberOfCarRoutes)
-            averageDistanceLabel.text = Utilities.shared.metersToMiles(User.shared.averageCarDistance)
-            totalDistanceLabel.text = Utilities.shared.metersToMiles(User.shared.totalCarDistance)
-            averageSpeedLabel.text = Utilities.shared.metersToMiles( 3600 * User.shared.averageCarSpeed)
-            totalTimeLabel.text = Utilities.shared.parseTime(User.shared.totalCarElapsedTime)
-            
-        default:
-            break
+            case 0: routeType = .run
+            case 1: routeType = .bike
+            case 2: routeType = .car
+            default:
+                routeType = User.shared.routeType  // this is never hit, just needed to "guarantee" initialization
+                break
         }
+
+        let stats = User.shared.computeStatsFor(type: routeType)
+        let routeCount = Int(stats["numberOfRoutes"]!)
+
+        routesLabel.text = "\(routeCount)"
+        averageDistanceLabel.text = Utilities.shared.metersToMiles( stats["averageDistance"]! )
+        totalDistanceLabel.text = Utilities.shared.metersToMiles( stats["totalDistance"]! )
+        averageSpeedLabel.text = Utilities.shared.metersToMiles( 3600 * stats["averageSpeed"]!)
+        totalTimeLabel.text = Utilities.shared.parseTime( Int(stats["totalElapsedTime"]!) )
     }
 }

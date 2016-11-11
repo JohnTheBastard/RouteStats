@@ -47,76 +47,6 @@ class User {
 
     var routeType: RouteType
 
-    //MARK: - Computed Properties
-    var numberOfCarRoutes: Int {
-        return self.carRoutes.count
-    }
-    var totalCarElapsedTime: Int{
-        return self.carRoutes.reduce(0){ (result, route) in
-            result + route.timeElapsed
-        }
-    }
-    var totalCarDistance: Double{
-        return self.carRoutes.reduce(0.0){ (result, route) in
-            result + route.distanceTravelled
-        }
-    }
-    var averageCarSpeed: Double{
-        return self.totalCarDistance / Double(self.totalCarElapsedTime)
-    }
-    var averageCarDistance: Double{
-        return self.totalCarDistance / Double(self.carRoutes.count)
-    }
-    var averageCarElapsedTime: Int{
-        return self.totalCarElapsedTime / self.carRoutes.count
-    }
-
-    var numberOfBikeRoutes: Int {
-        return self.bikeRoutes.count
-    }
-    var totalBikeElapsedTime: Int{
-        return self.bikeRoutes.reduce(0){ (result, route) in
-            result + route.timeElapsed
-        }
-    }
-    var totalBikeDistance: Double{
-        return self.bikeRoutes.reduce(0.0){ (result, route) in
-            result + route.distanceTravelled
-        }
-    }
-    var averageBikeSpeed: Double{
-        return self.totalBikeDistance / Double(self.totalBikeElapsedTime)
-    }
-    var averageBikeDistance: Double{
-        return self.totalBikeDistance / Double(self.bikeRoutes.count)
-    }
-    var averageBikeElapsedTime: Int{
-        return self.totalBikeElapsedTime / self.bikeRoutes.count
-    }
-
-    var numberOfRunRoutes: Int {
-        return self.runRoutes.count
-    }
-    var totalRunElapsedTime: Int{
-        return self.runRoutes.reduce(0){ (result, route) in
-            result + route.timeElapsed
-        }
-    }
-    var totalRunDistance: Double{
-        return self.runRoutes.reduce(0.0){ (result, route) in
-            result + route.distanceTravelled
-        }
-    }
-    var averageRunSpeed: Double{
-        return self.totalRunDistance / Double(self.totalRunElapsedTime)
-    }
-    var averageRunDistance: Double{
-        return self.totalRunDistance / Double(self.runRoutes.count)
-    }
-    var averageRunElapsedTime: Int{
-        return self.totalRunElapsedTime / self.runRoutes.count
-    }
-
 
     //MARK: - Initializers
     private init(){
@@ -140,6 +70,36 @@ class User {
     }
 
     //MARK: - Public Instance Methods
+
+    func computeStatsFor(type: RouteType) -> [String: Double] {
+        var routes: [Route]
+
+        if      type == .run  { routes = self.runRoutes  }
+        else if type == .bike { routes = self.bikeRoutes }
+        else                  { routes = self.carRoutes  }
+
+        let numberOfRoutes = routes.count
+        let totalElapsedTime = routes.reduce(0){ (result, route) in
+            result + route.timeElapsed
+        }
+        let totalDistance = routes.reduce(0.0){ (result, route) in
+            result + route.distanceTravelled
+        }
+        let averageSpeed = totalDistance / Double( totalElapsedTime )
+        let averageDistance = totalDistance / Double(numberOfRoutes)
+        let averageElapsedTime = Double(totalElapsedTime / numberOfRoutes)
+
+        let stats =
+            [ "numberOfRoutes":     Double(numberOfRoutes),
+              "totalElapsedTime":   Double(totalElapsedTime),
+              "totalDistance":      totalDistance,
+              "averageSpeed":       averageSpeed,
+              "averageDistance":    averageDistance,
+              "averageElapsedTime": averageElapsedTime ]
+
+        return stats
+    }
+
     func addRoute(route: Route, type: RouteType, completion: RouteDataCompletion) {
         if type == .car {
             self.carRoutes.append(route)
