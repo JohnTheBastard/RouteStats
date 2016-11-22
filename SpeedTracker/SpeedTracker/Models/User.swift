@@ -96,16 +96,14 @@ class User {
         let totalDistance = routes.reduce(0.0){ (result, route) in
             result + route.distanceTravelled
         }
-        let averageSpeed = totalDistance / Double( totalElapsedTime )
-        let averageDistance = totalDistance / Double(numberOfRoutes)
-        print("totalElapsedTime: \(totalElapsedTime)\nnumberOfRoutes: \(numberOfRoutes) ")
-
+        var averageSpeed: Double{
+            return totalElapsedTime > 0 ? totalDistance / Double( totalElapsedTime ) : 0.0
+        }
+        var averageDistance: Double{
+            return numberOfRoutes > 0 ? totalDistance / Double(numberOfRoutes) : 0.0
+        }
         var averageElapsedTime: Double{
-            if numberOfRoutes == 0 {
-                return 0.0
-            } else {
-                return Double(totalElapsedTime / numberOfRoutes)
-            }
+            return numberOfRoutes > 0 ? Double(totalElapsedTime / numberOfRoutes) : 0.0
         }
 
         let stats =

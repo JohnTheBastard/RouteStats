@@ -25,16 +25,16 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <segmentedControl opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="bordered" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TRd-4N-9ky">
+                <segmentedControl contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="TRd-4N-9ky">
                     <rect key="frame" x="67.5" y="28" width="240" height="31"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="240" id="e2G-QN-IFS"/>
                         <constraint firstAttribute="height" constant="30" id="xSA-uB-v0r"/>
                     </constraints>
                     <segments>
-                        <segment title="Walking"/>
-                        <segment title="Biking"/>
-                        <segment title="Driving"/>
+                        <segment title="🚶"/>
+                        <segment title="🚲"/>
+                        <segment title="🚗"/>
                     </segments>
                     <color key="tintColor" red="0.0" green="0.024791156070000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
@@ -77,7 +77,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XTY-PU-qai">
                             <rect key="frame" x="8" y="108.5" width="343" height="93"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Distance: (MPH)" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kpZ-9a-CLX">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Distance: (miles)" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kpZ-9a-CLX">
                                     <rect key="frame" x="8" y="22" width="178" height="48"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="178" id="1qy-y7-sWg"/>
@@ -105,7 +105,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Icg-DW-EEO">
                             <rect key="frame" x="8" y="209.5" width="343" height="92.5"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Distance: (in miles)" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9De-LK-epp">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Distance: (miles)" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9De-LK-epp">
                                     <rect key="frame" x="8" y="22" width="136" height="48"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="136" id="dmG-jA-uuf"/>
@@ -132,7 +132,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n5F-55-fbE">
                             <rect key="frame" x="8" y="310" width="343" height="92"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Speed: (MPH)" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="02S-c4-wD5">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Speed: (mph)" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="02S-c4-wD5">
                                     <rect key="frame" x="8" y="22" width="142" height="48"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="142" id="z9I-LY-3hC"/>
