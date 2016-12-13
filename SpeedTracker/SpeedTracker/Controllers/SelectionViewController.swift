@@ -14,6 +14,10 @@ class SelectionViewController: UIViewController {
     @IBOutlet weak var bicycleGlyph: UIImageView!
     @IBOutlet weak var carGlyph: UIImageView!
 
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+
 
     let routeVC = RouteViewController(nibName: "RouteViewController",
                                          bundle: nil)

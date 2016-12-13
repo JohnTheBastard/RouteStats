@@ -19,6 +19,11 @@ class RouteViewController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
 
     // MARK: - Properties
+
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+
     lazy var locationManager: CLLocationManager = {
         var _locationManager = CLLocationManager()
         _locationManager.delegate = self
@@ -59,7 +64,7 @@ class RouteViewController: UIViewController {
     // MARK: - ViewController Overrides
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIApplication.shared.statusBarStyle = .lightContent
+        //UIApplication.shared.statusBarStyle = .lightContent
         self.mapView.delegate = self
 
         self.timeTravelled.text = "00:00"
@@ -71,7 +76,7 @@ class RouteViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         resetProperties()
-        UIApplication.shared.statusBarStyle = .default
+        //UIApplication.shared.statusBarStyle = .default
         self.locationManager.stopUpdatingLocation()
     }
 

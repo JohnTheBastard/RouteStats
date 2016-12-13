@@ -24,6 +24,10 @@ class StatsViewController: UIViewController {
         UIApplication.shared.statusBarStyle = .lightContent
     }
 
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+
     @IBAction func statsSegmentedController(_ sender: Any) {
         var routeType: RouteType
         switch (sender as AnyObject).selectedSegmentIndex {

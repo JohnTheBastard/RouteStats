@@ -17,6 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
+        self.window = UIWindow()
+
+        self.window?.rootViewController = getTabBar()
+        self.window?.makeKeyAndVisible()
+
+        return true
+    }
+
+    func getTabBar() -> UITabBarController {
+
         let tabBarController = UITabBarController()
 
         let selectionVC = SelectionViewController(nibName: "SelectionViewController", bundle: nil)
@@ -27,12 +37,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         selectionVC.tabBarItem = UITabBarItem(title: "Route", image: UIImage(named: "map-glyph"), tag: 0)
         statsVC.tabBarItem = UITabBarItem(title: "Stats", image: UIImage(named: "stats-glyph"), tag: 1)
 
-        self.window = UIWindow()
+        return tabBarController
 
-        self.window?.rootViewController = tabBarController
-        self.window?.makeKeyAndVisible()
-
-        return true
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
