@@ -155,7 +155,9 @@ class User {
                     print("Success saving \(record)")
                     OperationQueue.main.addOperation { completion(true) }
                 } else {
-                    print(error)
+                    if let error = error{
+                        print(error)
+                    }
                     OperationQueue.main.addOperation { completion(false) }
                 }
                 
@@ -183,7 +185,9 @@ class User {
                             let operation = {
                                 self.database.delete(withRecordID: records[ii].recordID,
                                                      completionHandler: { (recordID, error) in
-                                print(error)
+                                    if let error = error{
+                                        print(error)
+                                    }
                                 })
                             }
                             queue.addOperation(operation)
@@ -205,7 +209,9 @@ class User {
                     OperationQueue.main.addOperation { completion(fetchedData.last) }
                 }
             } else {
-                print(error)
+                if let error = error{
+                    print(error)
+                }
             }
         }
     }
