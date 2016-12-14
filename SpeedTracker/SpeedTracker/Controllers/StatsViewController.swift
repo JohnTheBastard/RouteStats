@@ -10,7 +10,16 @@ import UIKit
 
 class StatsViewController: UIViewController {
 
+    @IBOutlet weak var statsTableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
+
+
+    @IBOutlet var statsSectionHeader: UITableViewCell!
+    @IBOutlet var routesCell: UITableViewCell!
+    @IBOutlet var averageDistanceCell: UITableViewCell!
+    @IBOutlet var totalDistanceCell: UITableViewCell!
+    @IBOutlet var averageSpeedCell: UITableViewCell!
+    @IBOutlet var totalTimeCell: UITableViewCell!
 
     @IBOutlet weak var routesLabel: UILabel!
     @IBOutlet weak var averageDistanceLabel: UILabel!
@@ -20,8 +29,15 @@ class StatsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //segmentedControl.contentMode = UIViewContentMode.scaleToFill
-        UIApplication.shared.statusBarStyle = .lightContent
+        segmentedControl.contentMode = UIViewContentMode.scaleToFill
+        //UIApplication.shared.statusBarStyle = .lightContent
+
+        self.statsTableView.delegate = self
+        self.statsTableView.dataSource = self
+
+        self.statsTableView.register(UINib(nibName: "StatsViewController", bundle: nil),
+                                     forHeaderFooterViewReuseIdentifier: "StatsSectionHeader")
+
     }
 
     override var prefersStatusBarHidden: Bool {
@@ -48,4 +64,30 @@ class StatsViewController: UIViewController {
         averageSpeedLabel.text = Utilities.shared.metersToMiles( 3600 * stats["averageSpeed"]!)
         totalTimeLabel.text = Utilities.shared.parseTime( Int(stats["totalElapsedTime"]!) )
     }
+}
+
+extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 5
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        switch indexPath.row {
+            case 0:  return routesCell
+            case 1:  return averageDistanceCell
+            case 2:  return totalDistanceCell
+            case 3:  return averageSpeedCell
+            default: return totalTimeCell
+        }
+    }
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        //return tableView.dequeueReusableHeaderFooterView(withIdentifier: "StatsSectionHeader")
+        return statsSectionHeader
+    }
+
 }
