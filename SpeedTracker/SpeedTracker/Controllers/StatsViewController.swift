@@ -13,8 +13,8 @@ class StatsViewController: UIViewController {
     @IBOutlet weak var statsTableView: UITableView!
     @IBOutlet weak var segmentedControl: UISegmentedControl!
 
-
     @IBOutlet var statsSectionHeader: UITableViewCell!
+
     @IBOutlet var routesCell: UITableViewCell!
     @IBOutlet var averageDistanceCell: UITableViewCell!
     @IBOutlet var totalDistanceCell: UITableViewCell!
@@ -32,11 +32,11 @@ class StatsViewController: UIViewController {
         segmentedControl.contentMode = UIViewContentMode.scaleToFill
         //UIApplication.shared.statusBarStyle = .lightContent
 
-        self.statsTableView.delegate = self
-        self.statsTableView.dataSource = self
+        statsTableView.delegate = self
+        statsTableView.dataSource = self
 
-        self.statsTableView.register(UINib(nibName: "StatsViewController", bundle: nil),
-                                     forHeaderFooterViewReuseIdentifier: "StatsSectionHeader")
+        statsTableView.register(UINib(nibName: "StatsViewController", bundle: nil),
+                                forHeaderFooterViewReuseIdentifier: "StatsSectionHeader")
 
     }
 
@@ -45,17 +45,14 @@ class StatsViewController: UIViewController {
     }
 
     @IBAction func statsSegmentedController(_ sender: Any) {
-        var routeType: RouteType
         switch (sender as AnyObject).selectedSegmentIndex {
-            case 0: routeType = .run
-            case 1: routeType = .bike
-            case 2: routeType = .car
-            default:
-                routeType = User.shared.routeType  // this is never hit, just needed to "guarantee" initialization
-                break
+            case 0: User.shared.routeType = .run
+            case 1: User.shared.routeType = .bike
+            case 2: User.shared.routeType = .car
+            default: break
         }
 
-        let stats = User.shared.computeStatsFor(type: routeType)
+        let stats = User.shared.computeStatsFor(type: User.shared.routeType)
         let routeCount = Int(stats["numberOfRoutes"]!)
 
         routesLabel.text = "\(routeCount)"

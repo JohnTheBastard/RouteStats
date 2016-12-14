@@ -18,6 +18,16 @@ class RouteViewController: UIViewController {
     @IBOutlet weak var averageSpeed: UILabel!
     @IBOutlet weak var mapView: MKMapView!
 
+    @IBAction func segmentedController(_ sender: UISegmentedControl) {
+        switch (sender as AnyObject).selectedSegmentIndex {
+            case 0: User.shared.routeType = .run
+            case 1: User.shared.routeType = .bike
+            case 2: User.shared.routeType = .car
+            default: break
+        }
+
+    }
+
     // MARK: - Properties
 
     override var prefersStatusBarHidden: Bool {
