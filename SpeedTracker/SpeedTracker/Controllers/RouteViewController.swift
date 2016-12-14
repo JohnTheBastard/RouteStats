@@ -12,6 +12,7 @@ import MapKit
 
 
 class RouteViewController: UIViewController {
+    // MARK: - Properties
     @IBOutlet weak var timeTravelled: UILabel!
     @IBOutlet weak var distanceTravelled: UILabel!
     @IBOutlet weak var currentSpeed: UILabel!
@@ -21,9 +22,6 @@ class RouteViewController: UIViewController {
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
     @IBOutlet weak var segmentedController: UISegmentedControl!
-
-
-    // MARK: - Properties
 
     let green = UIColor(red:0.15, green:0.50, blue:0.01, alpha:1.0)
     let red = UIColor(red:0.50, green:0.00, blue:0.00, alpha:1.0)
@@ -209,9 +207,7 @@ class RouteViewController: UIViewController {
         case 2: User.shared.routeType = .car
         default: break
         }
-
     }
-
 
     @IBAction func startButtonPressed(_ sender: Any) {
         resetProperties()
@@ -238,6 +234,8 @@ class RouteViewController: UIViewController {
             } else {
                 message = "There was an error attempting to save route data."
             }
+            
+            //TODO: This whole action sheet can go away soon
             let actionSheet = UIAlertController(title: "Route Completed:", message: message, preferredStyle: .actionSheet)
 
             let dismissViewAction = UIAlertAction(title: "Go Back to the Selection Screen", style: .default) { (action) in
@@ -258,6 +256,12 @@ class RouteViewController: UIViewController {
         print("swiper is swiping")
         self.dismiss(animated: true)
     }
+
+
+    @IBAction func statsButtonPressed(_ sender: UIButton) {
+        print("\nfoo\n")
+    }
+
 
 
 }

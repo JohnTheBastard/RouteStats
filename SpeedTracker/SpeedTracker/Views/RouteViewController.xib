@@ -133,6 +133,17 @@
                         <action selector="segmentedControllerSelected:" destination="-1" eventType="valueChanged" id="yyY-Re-IhG"/>
                     </connections>
                 </segmentedControl>
+                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mBu-yk-gfj">
+                    <rect key="frame" x="319" y="24" width="48" height="30"/>
+                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                    <state key="normal" title="Stats">
+                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="statsButtonPressed:" destination="-1" eventType="touchUpInside" id="Xtl-vT-SRQ"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <gestureRecognizers/>
@@ -149,6 +160,7 @@
                 <constraint firstItem="wUy-nC-fmW" firstAttribute="top" secondItem="WBo-H9-HUz" secondAttribute="top" constant="25" id="ELL-bw-jdT"/>
                 <constraint firstAttribute="trailing" secondItem="KD8-pI-cZq" secondAttribute="trailing" constant="8" id="GKr-xr-5MT"/>
                 <constraint firstAttribute="trailing" secondItem="w0e-rb-AVR" secondAttribute="trailing" constant="8" id="Jka-UG-rLS"/>
+                <constraint firstAttribute="trailing" secondItem="mBu-yk-gfj" secondAttribute="trailing" constant="8" id="Nlx-6e-M9t"/>
                 <constraint firstItem="Ye2-UV-Oax" firstAttribute="leading" secondItem="WBo-H9-HUz" secondAttribute="leading" constant="8" id="ONs-1v-yGh"/>
                 <constraint firstItem="XAI-l7-Gxt" firstAttribute="top" secondItem="w0e-rb-AVR" secondAttribute="bottom" constant="8" id="RwF-RT-j4p"/>
                 <constraint firstItem="KD8-pI-cZq" firstAttribute="top" secondItem="wUy-nC-fmW" secondAttribute="bottom" constant="22" id="S5q-uf-aJ6"/>
@@ -162,6 +174,7 @@
                 <constraint firstAttribute="trailing" secondItem="arx-is-g3U" secondAttribute="trailing" constant="8" id="bfr-mm-rtU"/>
                 <constraint firstItem="KD8-pI-cZq" firstAttribute="top" secondItem="WBo-H9-HUz" secondAttribute="top" constant="75" id="fA4-tz-N7P"/>
                 <constraint firstItem="r4C-GG-S0P" firstAttribute="top" secondItem="XAI-l7-Gxt" secondAttribute="bottom" constant="8" id="gnK-ud-yle"/>
+                <constraint firstItem="mBu-yk-gfj" firstAttribute="centerY" secondItem="wUy-nC-fmW" secondAttribute="centerY" id="gvp-CY-SZi"/>
                 <constraint firstAttribute="trailing" secondItem="9Pk-Bs-OVM" secondAttribute="trailing" constant="8" id="jUy-Xc-s5h"/>
                 <constraint firstItem="wUy-nC-fmW" firstAttribute="centerX" secondItem="WBo-H9-HUz" secondAttribute="centerX" id="mRA-CF-PsT"/>
                 <constraint firstItem="9Pk-Bs-OVM" firstAttribute="width" secondItem="r4C-GG-S0P" secondAttribute="width" id="n9j-K4-gwe"/>

@@ -19,8 +19,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         self.window = UIWindow()
 
-        self.window?.rootViewController = getTabBar()
+//        self.window?.rootViewController = getTabBar()
+        self.window?.rootViewController = noSelectionScreen()
         self.window?.makeKeyAndVisible()
+
 
         return true
     }
@@ -39,6 +41,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         return tabBarController
 
+    }
+
+    func noSelectionScreen() -> UIViewController{
+        //Temporary function to try out different setup
+        let routeVC = RouteViewController(nibName: "RouteViewController", bundle: nil)
+        return routeVC
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
