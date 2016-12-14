@@ -18,17 +18,16 @@ class RouteViewController: UIViewController {
     @IBOutlet weak var averageSpeed: UILabel!
     @IBOutlet weak var mapView: MKMapView!
 
-    @IBAction func segmentedController(_ sender: UISegmentedControl) {
-        switch (sender as AnyObject).selectedSegmentIndex {
-            case 0: User.shared.routeType = .run
-            case 1: User.shared.routeType = .bike
-            case 2: User.shared.routeType = .car
-            default: break
-        }
+    @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var stopButton: UIButton!
+    @IBOutlet weak var segmentedController: UISegmentedControl!
 
-    }
 
     // MARK: - Properties
+
+    let green = UIColor(red:0.15, green:0.50, blue:0.01, alpha:1.0)
+    let red = UIColor(red:0.50, green:0.00, blue:0.00, alpha:1.0)
+    let grayedOut = UIColor(red:0.50, green:0.50, blue:0.50, alpha:1.0)
 
     override var prefersStatusBarHidden: Bool {
         return true
@@ -81,6 +80,11 @@ class RouteViewController: UIViewController {
         self.distanceTravelled.text = "0"
         self.currentSpeed.text = "0"
         self.averageSpeed.text = "0"
+
+        self.startButton.isEnabled = true
+        self.segmentedController.isEnabled = true
+        self.stopButton.isEnabled = false
+        self.stopButton.backgroundColor = grayedOut
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -176,7 +180,39 @@ class RouteViewController: UIViewController {
         return false
     }
 
+    func toggleButtons() {
+        self.segmentedController.isEnabled = !self.segmentedController.isEnabled
+
+        if self.startButton.isEnabled {
+            self.startButton.backgroundColor = grayedOut
+            self.startButton.isEnabled = false
+        } else {
+            self.startButton.backgroundColor = green
+            self.startButton.isEnabled = true
+        }
+
+        if self.stopButton.isEnabled {
+            self.stopButton.backgroundColor = grayedOut
+            self.stopButton.isEnabled = false
+        } else {
+            self.stopButton.backgroundColor = red
+            self.stopButton.isEnabled = true
+        }
+    }
+
     // MARK: - Actions
+
+    @IBAction func segmentedControllerSelected(_ sender: Any) {
+        switch (sender as AnyObject).selectedSegmentIndex {
+        case 0: User.shared.routeType = .run
+        case 1: User.shared.routeType = .bike
+        case 2: User.shared.routeType = .car
+        default: break
+        }
+
+    }
+
+
     @IBAction func startButtonPressed(_ sender: Any) {
         resetProperties()
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self,
@@ -184,6 +220,8 @@ class RouteViewController: UIViewController {
                                           userInfo: nil, repeats: true)
         self.locationManagerTimeStamp = Date().timeIntervalSince1970
         self.locationManager.startUpdatingLocation()
+
+        self.toggleButtons()
     }
 
     @IBAction func stopButtonPressed(_ sender: Any) {
@@ -211,6 +249,8 @@ class RouteViewController: UIViewController {
             actionSheet.addAction(dismissViewAction)
             self.present(actionSheet, animated: true, completion: nil)
         })
+
+        self.toggleButtons()
 
     }
 

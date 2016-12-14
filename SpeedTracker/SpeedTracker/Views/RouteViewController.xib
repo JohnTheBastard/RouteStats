@@ -15,6 +15,9 @@
                 <outlet property="currentSpeed" destination="w0e-rb-AVR" id="wB6-2x-LIy"/>
                 <outlet property="distanceTravelled" destination="xpu-W8-SPD" id="1NS-Jh-1Kv"/>
                 <outlet property="mapView" destination="arx-is-g3U" id="9a3-bL-aDo"/>
+                <outlet property="segmentedController" destination="wUy-nC-fmW" id="ZTJ-ob-hvk"/>
+                <outlet property="startButton" destination="r4C-GG-S0P" id="Gtr-uJ-RsS"/>
+                <outlet property="stopButton" destination="9Pk-Bs-OVM" id="wja-cb-hUe"/>
                 <outlet property="timeTravelled" destination="KD8-pI-cZq" id="Q6E-si-Yei"/>
                 <outlet property="view" destination="WBo-H9-HUz" id="Ec5-AM-4Z8"/>
             </connections>
@@ -87,9 +90,9 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Pk-Bs-OVM">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Pk-Bs-OVM" userLabel="Stop Button">
                     <rect key="frame" x="191.5" y="191" width="175.5" height="50"/>
-                    <color key="backgroundColor" red="0.5" green="0.0" blue="0.0051338325699932241" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.49803921568627452" green="0.0" blue="0.0039215686274509803" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="ng8-fS-pas"/>
                     </constraints>
@@ -103,7 +106,7 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="r4C-GG-S0P">
                     <rect key="frame" x="8" y="191" width="175.5" height="50"/>
-                    <color key="backgroundColor" red="0.0011575429348977817" green="0.5" blue="0.0047677967714514491" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.15294117647058825" green="0.49803921568627452" blue="0.0078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="50" id="IrA-x1-2sO"/>
                     </constraints>
@@ -127,7 +130,7 @@
                         <segment title="Drive"/>
                     </segments>
                     <connections>
-                        <action selector="segmentedController:" destination="-1" eventType="valueChanged" id="Ps2-pN-Nyt"/>
+                        <action selector="segmentedControllerSelected:" destination="-1" eventType="valueChanged" id="yyY-Re-IhG"/>
                     </connections>
                 </segmentedControl>
             </subviews>
