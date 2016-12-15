@@ -18,35 +18,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 
         self.window = UIWindow()
-
-//        self.window?.rootViewController = getTabBar()
-        self.window?.rootViewController = noSelectionScreen()
+        self.window?.rootViewController = ContainerViewController()
         self.window?.makeKeyAndVisible()
 
-
         return true
-    }
-
-    func getTabBar() -> UITabBarController {
-
-        let tabBarController = UITabBarController()
-
-        let selectionVC = SelectionViewController(nibName: "SelectionViewController", bundle: nil)
-        let statsVC = StatsViewController(nibName: "StatsViewController", bundle: nil)
-
-        tabBarController.viewControllers = [selectionVC, statsVC]
-
-        selectionVC.tabBarItem = UITabBarItem(title: "Route", image: UIImage(named: "map-glyph"), tag: 0)
-        statsVC.tabBarItem = UITabBarItem(title: "Stats", image: UIImage(named: "stats-glyph"), tag: 1)
-
-        return tabBarController
-
-    }
-
-    func noSelectionScreen() -> UIViewController{
-        //Temporary function to try out different setup
-        let routeVC = RouteViewController(nibName: "RouteViewController", bundle: nil)
-        return routeVC
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

@@ -61,6 +61,15 @@ class StatsViewController: UIViewController {
         averageSpeedLabel.text = Utilities.shared.metersToMiles( 3600 * stats["averageSpeed"]!)
         totalTimeLabel.text = Utilities.shared.parseTime( Int(stats["totalElapsedTime"]!) )
     }
+
+    @IBAction func slideViewButtonPressed(_ sender: Any) {
+        if let parent = self.parent as? ContainerViewController {
+            parent.slideStatsVC()
+        }
+
+    }
+
+
 }
 
 extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
@@ -80,6 +89,14 @@ extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
             case 3:  return averageSpeedCell
             default: return totalTimeCell
         }
+    }
+
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return statsSectionHeader.frame.size.height
+    }
+
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 1.0
     }
 
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

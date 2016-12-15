@@ -21,7 +21,6 @@ class RouteViewController: UIViewController {
 
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var stopButton: UIButton!
-    @IBOutlet weak var segmentedController: UISegmentedControl!
 
     let green = UIColor(red:0.15, green:0.50, blue:0.01, alpha:1.0)
     let red = UIColor(red:0.50, green:0.00, blue:0.00, alpha:1.0)
@@ -79,8 +78,10 @@ class RouteViewController: UIViewController {
         self.currentSpeed.text = "0"
         self.averageSpeed.text = "0"
 
+        if let statsVC = self.parent?.childViewControllers[1] as? StatsViewController {
+            statsVC.segmentedControl.isEnabled = true
+        }
         self.startButton.isEnabled = true
-        self.segmentedController.isEnabled = true
         self.stopButton.isEnabled = false
         self.stopButton.backgroundColor = grayedOut
     }
@@ -88,7 +89,6 @@ class RouteViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         resetProperties()
-        //UIApplication.shared.statusBarStyle = .default
         self.locationManager.stopUpdatingLocation()
     }
 
@@ -179,7 +179,9 @@ class RouteViewController: UIViewController {
     }
 
     func toggleButtons() {
-        self.segmentedController.isEnabled = !self.segmentedController.isEnabled
+        if let statsVC = self.parent?.childViewControllers[1] as? StatsViewController {
+            statsVC.segmentedControl.isEnabled = !statsVC.segmentedControl.isEnabled
+        }
 
         if self.startButton.isEnabled {
             self.startButton.backgroundColor = grayedOut
@@ -200,15 +202,6 @@ class RouteViewController: UIViewController {
 
     // MARK: - Actions
 
-    @IBAction func segmentedControllerSelected(_ sender: Any) {
-        switch (sender as AnyObject).selectedSegmentIndex {
-        case 0: User.shared.routeType = .run
-        case 1: User.shared.routeType = .bike
-        case 2: User.shared.routeType = .car
-        default: break
-        }
-    }
-
     @IBAction func startButtonPressed(_ sender: Any) {
         resetProperties()
         self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self,
@@ -228,24 +221,12 @@ class RouteViewController: UIViewController {
                                    locations: self.allLocations)
 
         User.shared.addRoute(route: completedRoute, type: User.shared.routeType, completion: { (success) in
-            var message: String
             if success {
-                message = "Route data saved!"
+                print("Route data saved!")
             } else {
-                message = "There was an error attempting to save route data."
-            }
-            
-            //TODO: This whole action sheet can go away soon
-            let actionSheet = UIAlertController(title: "Route Completed:", message: message, preferredStyle: .actionSheet)
-
-            let dismissViewAction = UIAlertAction(title: "Go Back to the Selection Screen", style: .default) { (action) in
-                self.dismiss(animated: true)
+                print("There was an error attempting to save route data.")
             }
 
-            let cancelAction   = UIAlertAction(title: "Start Another Route", style: .default, handler: nil)
-            actionSheet.addAction(cancelAction)
-            actionSheet.addAction(dismissViewAction)
-            self.present(actionSheet, animated: true, completion: nil)
         })
 
         self.toggleButtons()
@@ -256,12 +237,6 @@ class RouteViewController: UIViewController {
         print("swiper is swiping")
         self.dismiss(animated: true)
     }
-
-
-    @IBAction func statsButtonPressed(_ sender: UIButton) {
-        print("\nfoo\n")
-    }
-
 
 
 }

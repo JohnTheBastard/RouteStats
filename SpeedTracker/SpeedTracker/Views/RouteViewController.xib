@@ -15,7 +15,6 @@
                 <outlet property="currentSpeed" destination="w0e-rb-AVR" id="wB6-2x-LIy"/>
                 <outlet property="distanceTravelled" destination="xpu-W8-SPD" id="1NS-Jh-1Kv"/>
                 <outlet property="mapView" destination="arx-is-g3U" id="9a3-bL-aDo"/>
-                <outlet property="segmentedController" destination="wUy-nC-fmW" id="ZTJ-ob-hvk"/>
                 <outlet property="startButton" destination="r4C-GG-S0P" id="Gtr-uJ-RsS"/>
                 <outlet property="stopButton" destination="9Pk-Bs-OVM" id="wja-cb-hUe"/>
                 <outlet property="timeTravelled" destination="KD8-pI-cZq" id="Q6E-si-Yei"/>
@@ -70,7 +69,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="arx-is-g3U">
-                    <rect key="frame" x="8" y="249" width="359" height="398"/>
+                    <rect key="frame" x="8" y="249" width="359" height="410"/>
                 </mapView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="average speed" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XAI-l7-Gxt">
                     <rect key="frame" x="191" y="162" width="176" height="21"/>
@@ -118,32 +117,6 @@
                         <action selector="startButtonPressed:" destination="-1" eventType="touchUpInside" id="MaD-KO-b5x"/>
                     </connections>
                 </button>
-                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="wUy-nC-fmW">
-                    <rect key="frame" x="87.5" y="25" width="200" height="29"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="200" id="KSf-Rw-bkg"/>
-                        <constraint firstAttribute="height" constant="28" id="xkE-fa-VKF"/>
-                    </constraints>
-                    <segments>
-                        <segment title="Walk"/>
-                        <segment title="Bike"/>
-                        <segment title="Drive"/>
-                    </segments>
-                    <connections>
-                        <action selector="segmentedControllerSelected:" destination="-1" eventType="valueChanged" id="yyY-Re-IhG"/>
-                    </connections>
-                </segmentedControl>
-                <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mBu-yk-gfj">
-                    <rect key="frame" x="319" y="24" width="48" height="30"/>
-                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                    <state key="normal" title="Stats">
-                        <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                    </state>
-                    <connections>
-                        <action selector="statsButtonPressed:" destination="-1" eventType="touchUpInside" id="Xtl-vT-SRQ"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <gestureRecognizers/>
@@ -157,16 +130,13 @@
                 <constraint firstItem="j8G-Iz-lk7" firstAttribute="leading" secondItem="WBo-H9-HUz" secondAttribute="leading" constant="8" id="AY8-Ne-f3T"/>
                 <constraint firstItem="xpu-W8-SPD" firstAttribute="leading" secondItem="w3H-K1-SCZ" secondAttribute="trailing" constant="8" id="CPa-yP-thn"/>
                 <constraint firstItem="9Pk-Bs-OVM" firstAttribute="top" secondItem="XAI-l7-Gxt" secondAttribute="bottom" constant="8" id="ELG-Ux-c0y"/>
-                <constraint firstItem="wUy-nC-fmW" firstAttribute="top" secondItem="WBo-H9-HUz" secondAttribute="top" constant="25" id="ELL-bw-jdT"/>
                 <constraint firstAttribute="trailing" secondItem="KD8-pI-cZq" secondAttribute="trailing" constant="8" id="GKr-xr-5MT"/>
                 <constraint firstAttribute="trailing" secondItem="w0e-rb-AVR" secondAttribute="trailing" constant="8" id="Jka-UG-rLS"/>
-                <constraint firstAttribute="trailing" secondItem="mBu-yk-gfj" secondAttribute="trailing" constant="8" id="Nlx-6e-M9t"/>
                 <constraint firstItem="Ye2-UV-Oax" firstAttribute="leading" secondItem="WBo-H9-HUz" secondAttribute="leading" constant="8" id="ONs-1v-yGh"/>
                 <constraint firstItem="XAI-l7-Gxt" firstAttribute="top" secondItem="w0e-rb-AVR" secondAttribute="bottom" constant="8" id="RwF-RT-j4p"/>
-                <constraint firstItem="KD8-pI-cZq" firstAttribute="top" secondItem="wUy-nC-fmW" secondAttribute="bottom" constant="22" id="S5q-uf-aJ6"/>
                 <constraint firstItem="arx-is-g3U" firstAttribute="top" secondItem="9Pk-Bs-OVM" secondAttribute="bottom" constant="8" id="TVs-KI-BqU"/>
                 <constraint firstItem="r4C-GG-S0P" firstAttribute="top" secondItem="XAI-l7-Gxt" secondAttribute="bottom" constant="8" id="TyI-NF-J6d"/>
-                <constraint firstAttribute="bottom" secondItem="arx-is-g3U" secondAttribute="bottom" constant="20" id="WLK-qU-jJd"/>
+                <constraint firstAttribute="bottom" secondItem="arx-is-g3U" secondAttribute="bottom" constant="8" id="WLK-qU-jJd"/>
                 <constraint firstItem="j8G-Iz-lk7" firstAttribute="top" secondItem="Vsv-Id-Qwg" secondAttribute="bottom" constant="8" id="WME-IV-Se8"/>
                 <constraint firstItem="w0e-rb-AVR" firstAttribute="leading" secondItem="Vsv-Id-Qwg" secondAttribute="trailing" constant="8" id="Yy6-br-N9L"/>
                 <constraint firstAttribute="trailing" secondItem="XAI-l7-Gxt" secondAttribute="trailing" constant="8" id="ZMn-h5-k6B"/>
@@ -174,14 +144,11 @@
                 <constraint firstAttribute="trailing" secondItem="arx-is-g3U" secondAttribute="trailing" constant="8" id="bfr-mm-rtU"/>
                 <constraint firstItem="KD8-pI-cZq" firstAttribute="top" secondItem="WBo-H9-HUz" secondAttribute="top" constant="75" id="fA4-tz-N7P"/>
                 <constraint firstItem="r4C-GG-S0P" firstAttribute="top" secondItem="XAI-l7-Gxt" secondAttribute="bottom" constant="8" id="gnK-ud-yle"/>
-                <constraint firstItem="mBu-yk-gfj" firstAttribute="centerY" secondItem="wUy-nC-fmW" secondAttribute="centerY" id="gvp-CY-SZi"/>
                 <constraint firstAttribute="trailing" secondItem="9Pk-Bs-OVM" secondAttribute="trailing" constant="8" id="jUy-Xc-s5h"/>
-                <constraint firstItem="wUy-nC-fmW" firstAttribute="centerX" secondItem="WBo-H9-HUz" secondAttribute="centerX" id="mRA-CF-PsT"/>
                 <constraint firstItem="9Pk-Bs-OVM" firstAttribute="width" secondItem="r4C-GG-S0P" secondAttribute="width" id="n9j-K4-gwe"/>
                 <constraint firstItem="Vsv-Id-Qwg" firstAttribute="leading" secondItem="WBo-H9-HUz" secondAttribute="leading" constant="8" id="oZO-Ob-AhY"/>
                 <constraint firstItem="Vsv-Id-Qwg" firstAttribute="top" secondItem="w3H-K1-SCZ" secondAttribute="bottom" constant="8" id="oj6-hC-Umk"/>
                 <constraint firstItem="r4C-GG-S0P" firstAttribute="top" secondItem="j8G-Iz-lk7" secondAttribute="bottom" constant="8" id="orZ-be-ecd"/>
-                <constraint firstItem="Ye2-UV-Oax" firstAttribute="top" secondItem="wUy-nC-fmW" secondAttribute="bottom" constant="22" id="qI0-Xk-hXk"/>
                 <constraint firstItem="KD8-pI-cZq" firstAttribute="leading" secondItem="Ye2-UV-Oax" secondAttribute="trailing" constant="8" id="qSR-0H-SsH"/>
                 <constraint firstItem="r4C-GG-S0P" firstAttribute="leading" secondItem="WBo-H9-HUz" secondAttribute="leading" constant="8" id="qbW-pX-lIa"/>
                 <constraint firstItem="w3H-K1-SCZ" firstAttribute="top" secondItem="Ye2-UV-Oax" secondAttribute="bottom" constant="8" id="qyR-0B-dRt"/>

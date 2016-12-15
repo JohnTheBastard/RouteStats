@@ -9,9 +9,7 @@
 /* Begin PBXBuildFile section */
 		F258EC491DD1035B000D029D /* RouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F258EC471DD1035B000D029D /* RouteViewController.swift */; };
 		F258EC4C1DD103A9000D029D /* RouteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F258EC4B1DD103A9000D029D /* RouteViewController.xib */; };
-		F258EC4F1DD103DA000D029D /* SelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F258EC4D1DD103DA000D029D /* SelectionViewController.swift */; };
 		F258EC531DD103F6000D029D /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F258EC511DD103F6000D029D /* StatsViewController.swift */; };
-		F258EC571DD10426000D029D /* SelectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F258EC551DD10426000D029D /* SelectionViewController.xib */; };
 		F258EC581DD10426000D029D /* StatsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = F258EC561DD10426000D029D /* StatsViewController.xib */; };
 		F25CC0911DD0F7EE00A6786D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25CC08F1DD0F7EE00A6786D /* AppDelegate.swift */; };
 		F25CC0941DD0F80000A6786D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F25CC0931DD0F80000A6786D /* Assets.xcassets */; };
@@ -21,14 +19,13 @@
 		F2A15A7B1DD250E000B467A8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A15A7A1DD250E000B467A8 /* MapKit.framework */; };
 		F2A15A7E1DD2B25900B467A8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A15A7D1DD2B25900B467A8 /* User.swift */; };
 		F2A15A801DD3AF6E00B467A8 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A15A7F1DD3AF6E00B467A8 /* CloudKit.framework */; };
+		F2FB097D1E021283009684A0 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FB097C1E021283009684A0 /* ContainerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		F258EC471DD1035B000D029D /* RouteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteViewController.swift; path = Controllers/RouteViewController.swift; sourceTree = "<group>"; };
 		F258EC4B1DD103A9000D029D /* RouteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RouteViewController.xib; path = Views/RouteViewController.xib; sourceTree = "<group>"; };
-		F258EC4D1DD103DA000D029D /* SelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SelectionViewController.swift; path = Controllers/SelectionViewController.swift; sourceTree = "<group>"; };
 		F258EC511DD103F6000D029D /* StatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StatsViewController.swift; path = Controllers/StatsViewController.swift; sourceTree = "<group>"; };
-		F258EC551DD10426000D029D /* SelectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SelectionViewController.xib; path = Views/SelectionViewController.xib; sourceTree = "<group>"; };
 		F258EC561DD10426000D029D /* StatsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StatsViewController.xib; path = Views/StatsViewController.xib; sourceTree = "<group>"; };
 		F25CC0741DD0F5AF00A6786D /* SpeedTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F25CC0831DD0F5AF00A6786D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -41,6 +38,7 @@
 		F2A15A7C1DD250FF00B467A8 /* SpeedTracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpeedTracker.entitlements; sourceTree = "<group>"; };
 		F2A15A7D1DD2B25900B467A8 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Models/User.swift; sourceTree = "<group>"; };
 		F2A15A7F1DD3AF6E00B467A8 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		F2FB097C1E021283009684A0 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContainerViewController.swift; path = Controllers/ContainerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,7 +87,6 @@
 			isa = PBXGroup;
 			children = (
 				F258EC4B1DD103A9000D029D /* RouteViewController.xib */,
-				F258EC551DD10426000D029D /* SelectionViewController.xib */,
 				F258EC561DD10426000D029D /* StatsViewController.xib */,
 				F25CC0931DD0F80000A6786D /* Assets.xcassets */,
 			);
@@ -109,9 +106,9 @@
 			isa = PBXGroup;
 			children = (
 				F258EC471DD1035B000D029D /* RouteViewController.swift */,
-				F258EC4D1DD103DA000D029D /* SelectionViewController.swift */,
 				F258EC511DD103F6000D029D /* StatsViewController.swift */,
 				F25CC08F1DD0F7EE00A6786D /* AppDelegate.swift */,
+				F2FB097C1E021283009684A0 /* ContainerViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -206,7 +203,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F258EC571DD10426000D029D /* SelectionViewController.xib in Resources */,
 				F258EC4C1DD103A9000D029D /* RouteViewController.xib in Resources */,
 				F258EC581DD10426000D029D /* StatsViewController.xib in Resources */,
 				F25CC0941DD0F80000A6786D /* Assets.xcassets in Resources */,
@@ -222,11 +218,11 @@
 			files = (
 				F28637BD1DD1484D004171D9 /* Extensions.swift in Sources */,
 				F258EC491DD1035B000D029D /* RouteViewController.swift in Sources */,
-				F258EC4F1DD103DA000D029D /* SelectionViewController.swift in Sources */,
 				F28637BF1DD150E6004171D9 /* Route.swift in Sources */,
 				F258EC531DD103F6000D029D /* StatsViewController.swift in Sources */,
 				F25CC0911DD0F7EE00A6786D /* AppDelegate.swift in Sources */,
 				F274BC761DD540E400C7032D /* Utilities.swift in Sources */,
+				F2FB097D1E021283009684A0 /* ContainerViewController.swift in Sources */,
 				F2A15A7E1DD2B25900B467A8 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

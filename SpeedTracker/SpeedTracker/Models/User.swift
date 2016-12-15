@@ -44,6 +44,7 @@ class User {
     private let database: CKDatabase
 
     var routeType: RouteType
+    var statsViewPosition: StatsViewPosition = .down
 
 
     //MARK: - Initializers
