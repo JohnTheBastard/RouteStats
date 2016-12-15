@@ -18,6 +18,7 @@
                 <outlet property="routesCell" destination="bdu-sO-KaA" id="Upz-zJ-yPt"/>
                 <outlet property="routesLabel" destination="d5Y-kv-nhk" id="oID-5p-gCO"/>
                 <outlet property="segmentedControl" destination="TRd-4N-9ky" id="kmc-3J-cLz"/>
+                <outlet property="slideViewButtonImage" destination="Cvb-wz-rNo" id="7sg-5B-73o"/>
                 <outlet property="statsSectionHeader" destination="ZoE-LF-MVX" id="yAW-xd-nQQ"/>
                 <outlet property="statsTableView" destination="3Yf-BV-76W" id="cBa-kW-PSU"/>
                 <outlet property="totalDistanceCell" destination="FrG-QP-BqO" id="RQD-eG-PmE"/>
@@ -38,16 +39,29 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUr-Ud-VpA">
-                                <rect key="frame" x="333" y="625" width="30" height="30"/>
-                                <state key="normal" title="up"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DoubleArrow" translatesAutoresizingMaskIntoConstraints="NO" id="Cvb-wz-rNo">
+                                <rect key="frame" x="334" y="626" width="29" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="29" id="Z4c-FG-9PC"/>
+                                    <constraint firstAttribute="height" constant="29" id="p7J-nH-Dtt"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AX9-cW-qck">
+                                <rect key="frame" x="334" y="625.5" width="29" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="29" id="rmk-ID-TeB"/>
+                                    <constraint firstAttribute="width" constant="29" id="s8O-wA-UNE"/>
+                                </constraints>
                                 <connections>
-                                    <action selector="slideViewButtonPressed:" destination="-1" eventType="touchUpInside" id="UWd-uc-qZm"/>
+                                    <action selector="slideViewButtonPressed:" destination="-1" eventType="touchUpInside" id="d6J-Bb-09q"/>
                                 </connections>
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="lUr-Ud-VpA" secondAttribute="trailing" constant="12" id="kxY-fb-SDX"/>
+                            <constraint firstItem="AX9-cW-qck" firstAttribute="centerY" secondItem="Cvb-wz-rNo" secondAttribute="centerY" id="BO9-Nt-vBu"/>
+                            <constraint firstItem="AX9-cW-qck" firstAttribute="centerX" secondItem="Cvb-wz-rNo" secondAttribute="centerX" id="LER-OV-FcU"/>
+                            <constraint firstAttribute="trailing" secondItem="AX9-cW-qck" secondAttribute="trailing" constant="12" id="TNZ-AJ-ngP"/>
+                            <constraint firstAttribute="trailing" secondItem="Cvb-wz-rNo" secondAttribute="trailing" constant="12" id="iVQ-q4-5hU"/>
                         </constraints>
                     </view>
                     <blurEffect style="dark"/>
@@ -82,8 +96,8 @@
             <constraints>
                 <constraint firstItem="TRd-4N-9ky" firstAttribute="centerX" secondItem="fGS-sm-3q5" secondAttribute="centerX" id="2UV-YQ-xWI"/>
                 <constraint firstAttribute="bottom" secondItem="dQZ-ql-DZI" secondAttribute="bottom" id="6Kc-qp-veU"/>
+                <constraint firstItem="Cvb-wz-rNo" firstAttribute="centerY" secondItem="TRd-4N-9ky" secondAttribute="centerY" id="6xJ-5e-ZE8"/>
                 <constraint firstAttribute="trailing" secondItem="3Yf-BV-76W" secondAttribute="trailing" constant="12" id="Czw-xP-vy3"/>
-                <constraint firstItem="lUr-Ud-VpA" firstAttribute="centerY" secondItem="TRd-4N-9ky" secondAttribute="centerY" id="HPn-9b-vd9"/>
                 <constraint firstItem="3Yf-BV-76W" firstAttribute="centerX" secondItem="fGS-sm-3q5" secondAttribute="centerX" id="TWO-1q-FIg"/>
                 <constraint firstItem="dQZ-ql-DZI" firstAttribute="top" secondItem="fGS-sm-3q5" secondAttribute="top" id="U7W-Si-1WZ"/>
                 <constraint firstItem="TRd-4N-9ky" firstAttribute="top" secondItem="3Yf-BV-76W" secondAttribute="bottom" constant="12" id="Ufi-yP-11O"/>
@@ -98,7 +112,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bdu-sO-KaA" id="ngP-5w-haA">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Routes:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qa1-kF-01W">
@@ -131,7 +145,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="U0V-0o-fJz" id="WHQ-Fl-A0U">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Distance: (miles)" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kpZ-9a-CLX">
@@ -166,7 +180,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FrG-QP-BqO" id="VMT-zp-Br9">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Total Distance: (miles)" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9De-LK-epp">
@@ -200,7 +214,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yB3-zC-lIm" id="aAw-aG-Bvj">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Average Speed: (mph)" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="02S-c4-wD5">
@@ -235,7 +249,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="O9v-HV-bSh" id="ldd-Zc-udG">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="69"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="69.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zz2-hI-Qaa">
@@ -270,7 +284,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ZoE-LF-MVX" id="Ce8-EB-5d7">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Route Statistics" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z11-tf-Oxl">
@@ -288,5 +302,14 @@
             </tableViewCellContentView>
             <point key="canvasLocation" x="562" y="-208"/>
         </tableViewCell>
+        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Hzj-lN-3zB">
+            <rect key="frame" x="0.0" y="0.0" width="46" height="30"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <state key="normal" title="Button"/>
+            <point key="canvasLocation" x="328" y="679"/>
+        </button>
     </objects>
+    <resources>
+        <image name="DoubleArrow" width="29" height="29"/>
+    </resources>
 </document>

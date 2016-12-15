@@ -27,11 +27,18 @@ class StatsViewController: UIViewController {
     @IBOutlet weak var averageSpeedLabel: UILabel!
     @IBOutlet weak var totalTimeLabel: UILabel!
 
+    @IBOutlet weak var slideViewButtonImage: UIImageView!
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         segmentedControl.contentMode = UIViewContentMode.scaleToFill
         //UIApplication.shared.statusBarStyle = .lightContent
 
+        let blue = UIColor(red:0.09, green:0.38, blue:1.00, alpha:1.0)
+
+        slideViewButtonImage.image = slideViewButtonImage.image!.withRenderingMode(.alwaysTemplate)
+        slideViewButtonImage.tintColor = blue
         statsTableView.delegate = self
         statsTableView.dataSource = self
 
@@ -62,14 +69,11 @@ class StatsViewController: UIViewController {
         totalTimeLabel.text = Utilities.shared.parseTime( Int(stats["totalElapsedTime"]!) )
     }
 
-    @IBAction func slideViewButtonPressed(_ sender: Any) {
+    @IBAction func slideViewButtonPressed(_ sender: UIButton) {
         if let parent = self.parent as? ContainerViewController {
             parent.slideStatsVC()
         }
-
     }
-
-
 }
 
 extension StatsViewController: UITableViewDelegate, UITableViewDataSource {
