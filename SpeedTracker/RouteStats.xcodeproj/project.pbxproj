@@ -26,7 +26,7 @@
 		F258EC4B1DD103A9000D029D /* RouteViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RouteViewController.xib; path = Views/RouteViewController.xib; sourceTree = "<group>"; };
 		F258EC511DD103F6000D029D /* StatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StatsViewController.swift; path = Controllers/StatsViewController.swift; sourceTree = "<group>"; };
 		F258EC561DD10426000D029D /* StatsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StatsViewController.xib; path = Views/StatsViewController.xib; sourceTree = "<group>"; };
-		F25CC0741DD0F5AF00A6786D /* SpeedTracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpeedTracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F25CC0741DD0F5AF00A6786D /* RouteStats.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RouteStats.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F25CC0831DD0F5AF00A6786D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F25CC08F1DD0F7EE00A6786D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = Controllers/AppDelegate.swift; sourceTree = "<group>"; };
 		F25CC0931DD0F80000A6786D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = Views/Assets.xcassets; sourceTree = "<group>"; };
@@ -63,7 +63,7 @@
 		F25CC0751DD0F5AF00A6786D /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				F25CC0741DD0F5AF00A6786D /* SpeedTracker.app */,
+				F25CC0741DD0F5AF00A6786D /* RouteStats.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -131,9 +131,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		F25CC0731DD0F5AF00A6786D /* SpeedTracker */ = {
+		F25CC0731DD0F5AF00A6786D /* RouteStats */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = F25CC0861DD0F5AF00A6786D /* Build configuration list for PBXNativeTarget "SpeedTracker" */;
+			buildConfigurationList = F25CC0861DD0F5AF00A6786D /* Build configuration list for PBXNativeTarget "RouteStats" */;
 			buildPhases = (
 				F25CC0701DD0F5AF00A6786D /* Sources */,
 				F25CC0711DD0F5AF00A6786D /* Frameworks */,
@@ -143,9 +143,9 @@
 			);
 			dependencies = (
 			);
-			name = SpeedTracker;
+			name = RouteStats;
 			productName = SpeedTracker;
-			productReference = F25CC0741DD0F5AF00A6786D /* SpeedTracker.app */;
+			productReference = F25CC0741DD0F5AF00A6786D /* RouteStats.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -155,7 +155,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Bastardized Productions";
 				TargetAttributes = {
 					F25CC0731DD0F5AF00A6786D = {
@@ -176,7 +176,7 @@
 					};
 				};
 			};
-			buildConfigurationList = F25CC06F1DD0F5AF00A6786D /* Build configuration list for PBXProject "SpeedTracker" */;
+			buildConfigurationList = F25CC06F1DD0F5AF00A6786D /* Build configuration list for PBXProject "RouteStats" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -189,7 +189,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				F25CC0731DD0F5AF00A6786D /* SpeedTracker */,
+				F25CC0731DD0F5AF00A6786D /* RouteStats */,
 			);
 		};
 /* End PBXProject section */
@@ -244,6 +244,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -294,6 +295,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -352,7 +354,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		F25CC06F1DD0F5AF00A6786D /* Build configuration list for PBXProject "SpeedTracker" */ = {
+		F25CC06F1DD0F5AF00A6786D /* Build configuration list for PBXProject "RouteStats" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F25CC0841DD0F5AF00A6786D /* Debug */,
@@ -361,7 +363,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		F25CC0861DD0F5AF00A6786D /* Build configuration list for PBXNativeTarget "SpeedTracker" */ = {
+		F25CC0861DD0F5AF00A6786D /* Build configuration list for PBXNativeTarget "RouteStats" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				F25CC0871DD0F5AF00A6786D /* Debug */,
