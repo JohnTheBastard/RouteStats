@@ -1,6 +1,6 @@
 //
 //  Utilities.swift
-//  SpeedTracker
+//  RouteStats
 //
 //  Created by John D Hearn on 11/10/16.
 //  Copyright © 2016 Bastardized Productions. All rights reserved.
