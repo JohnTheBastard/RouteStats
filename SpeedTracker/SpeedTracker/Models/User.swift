@@ -8,7 +8,7 @@
 
 import Foundation
 import CoreLocation
-import CloudKit
+//import CloudKit
 
 
 typealias RouteDataCompletion = (Bool)->()
@@ -40,10 +40,11 @@ class User {
                  "runRoutes": self.runRoutes ]
     }
 
-    private let container: CKContainer
-    private let database: CKDatabase
+//    private let container: CKContainer
+//    private let database: CKDatabase
 
     var routeType: RouteType
+    var currentRoute: RouteActivity = .inactive
     var statsViewPosition: StatsViewPosition = .down
 
 
@@ -63,20 +64,20 @@ class User {
             self.bikeRoutes = []
             self.runRoutes  = []
         }
-        self.container = CKContainer.default()
-        self.database = self.container.publicCloudDatabase
+//        self.container = CKContainer.default()
+//        self.database = self.container.publicCloudDatabase
         self.routeType = .run
 
-        print("Looking for cloud data...")
-        var cloudRoutes = [String: [Route]]()
-        fetchFromCloud( completion: { (routes) in
-            if let routes = routes {
-                cloudRoutes = routes
-            } else {
-                print("Error: no data in the cloud!")
-            }
-        })
-        print("\(cloudRoutes)")
+//        print("Looking for cloud data...")
+//        var cloudRoutes = [String: [Route]]()
+//        fetchFromCloud( completion: { (routes) in
+//            if let routes = routes {
+//                cloudRoutes = routes
+//            } else {
+//                print("Error: no data in the cloud!")
+//            }
+//        })
+//        print("\(cloudRoutes)")
     }
 
     //MARK: - Public Instance Methods
@@ -133,89 +134,89 @@ class User {
         return fullPath
     }
 
-    func recordFor(_ savedData: Data) throws -> CKRecord{
-        let url = getDocumentsDirectory()
-        do{
-            try savedData.write(to: url)
-            let asset = CKAsset(fileURL: url)
-            let record = CKRecord(recordType: "RouteData")
-            record.setObject(asset, forKey: "asset")
+//    func recordFor(_ savedData: Data) throws -> CKRecord{
+//        let url = getDocumentsDirectory()
+//        do{
+//            try savedData.write(to: url)
+//            let asset = CKAsset(fileURL: url)
+//            let record = CKRecord(recordType: "RouteData")
+//            record.setObject(asset, forKey: "asset")
+//
+//            return record
+//        } catch {
+//            print(error)
+//            throw error
+//        }
+//    }
 
-            return record
-        } catch {
-            print(error)
-            throw error
-        }
-    }
-
-    func saveToCloud(data: Data, completion: @escaping RouteDataCompletion ) {
-        do{
-            let record = try recordFor(data)
-            self.database.save(record, completionHandler: {(record, error) in
-                if error == nil && record != nil {
-                    print("Success saving \(record)")
-                    OperationQueue.main.addOperation { completion(true) }
-                } else {
-                    if let error = error{
-                        print(error)
-                    }
-                    OperationQueue.main.addOperation { completion(false) }
-                }
-                
-            })
-        } catch {
-            print(error)
-        }
-    }
-
-    func fetchFromCloud(completion: @escaping GetRouteDataCompletion) {
-        let query = CKQuery(recordType: "routeData", predicate: NSPredicate(value: true) )
-        let sortDescriptor = NSSortDescriptor(key: "createdAt", ascending: true)
-        query.sortDescriptors = [sortDescriptor]
-
-        self.database.perform(query, inZoneWith: nil) { (records, error) in
-            if error == nil {
-                if let records = records{
-                    var fetchedData = [ [String:[Route]] ]()
-                    for record in records{
-                        print("Creation Date: \(record.creationDate?.description)")
-                    }
-                    if records.count > 1 {
-                        let queue = OperationQueue()
-                        for ii in 0..<records.count-1 {
-                            let operation = {
-                                self.database.delete(withRecordID: records[ii].recordID,
-                                                     completionHandler: { (recordID, error) in
-                                    if let error = error{
-                                        print(error)
-                                    }
-                                })
-                            }
-                            queue.addOperation(operation)
-                        }
-                    }
-
-                    guard let asset = records.last?["asset"] as? CKAsset else { return }
-
-                    let url = asset.fileURL
-                    do{
-                        let routeData = try Data(contentsOf: url)
-
-                        fetchedData.append( NSKeyedUnarchiver.unarchiveObject(with: routeData) as! [String : [Route]] )
-
-                    } catch {
-                        print(error)
-                        return
-                    }
-                    OperationQueue.main.addOperation { completion(fetchedData.last) }
-                }
-            } else {
-                if let error = error{
-                    print(error)
-                }
-            }
-        }
-    }
+//    func saveToCloud(data: Data, completion: @escaping RouteDataCompletion ) {
+//        do{
+//            let record = try recordFor(data)
+//            self.database.save(record, completionHandler: {(record, error) in
+//                if error == nil && record != nil {
+//                    print("Success saving \(record)")
+//                    OperationQueue.main.addOperation { completion(true) }
+//                } else {
+//                    if let error = error{
+//                        print(error)
+//                    }
+//                    OperationQueue.main.addOperation { completion(false) }
+//                }
+//                
+//            })
+//        } catch {
+//            print(error)
+//        }
+//    }
+//
+//    func fetchFromCloud(completion: @escaping GetRouteDataCompletion) {
+//        let query = CKQuery(recordType: "routeData", predicate: NSPredicate(value: true) )
+//        let sortDescriptor = NSSortDescriptor(key: "createdAt", ascending: true)
+//        query.sortDescriptors = [sortDescriptor]
+//
+//        self.database.perform(query, inZoneWith: nil) { (records, error) in
+//            if error == nil {
+//                if let records = records{
+//                    var fetchedData = [ [String:[Route]] ]()
+//                    for record in records{
+//                        print("Creation Date: \(record.creationDate?.description)")
+//                    }
+//                    if records.count > 1 {
+//                        let queue = OperationQueue()
+//                        for ii in 0..<records.count-1 {
+//                            let operation = {
+//                                self.database.delete(withRecordID: records[ii].recordID,
+//                                                     completionHandler: { (recordID, error) in
+//                                    if let error = error{
+//                                        print(error)
+//                                    }
+//                                })
+//                            }
+//                            queue.addOperation(operation)
+//                        }
+//                    }
+//
+//                    guard let asset = records.last?["asset"] as? CKAsset else { return }
+//
+//                    let url = asset.fileURL
+//                    do{
+//                        let routeData = try Data(contentsOf: url)
+//
+//                        fetchedData.append( NSKeyedUnarchiver.unarchiveObject(with: routeData) as! [String : [Route]] )
+//
+//                    } catch {
+//                        print(error)
+//                        return
+//                    }
+//                    OperationQueue.main.addOperation { completion(fetchedData.last) }
+//                }
+//            } else {
+//                if let error = error{
+//                    print(error)
+//                }
+//            }
+//        }
+//    }
 
     func save(routeData: [String: [Route]]){
         let savedData = NSKeyedArchiver.archivedData(withRootObject: routeData)
@@ -225,9 +226,9 @@ class User {
         let success = defaults.synchronize()
         print("Route data saved locally? \(success)")
 
-        saveToCloud(data: savedData, completion: { (success) in
-                print("Route data saved to cloud? \(success)")
-        })
+//        saveToCloud(data: savedData, completion: { (success) in
+//                print("Route data saved to cloud? \(success)")
+//        })
     }
 }
 

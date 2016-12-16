@@ -13,6 +13,10 @@ enum RouteType {
     case car, bike, run
 }
 
+enum RouteActivity {
+    case active, inactive
+}
+
 class Route: NSObject {
     var timeElapsed: Int
     var distanceTravelled: Double

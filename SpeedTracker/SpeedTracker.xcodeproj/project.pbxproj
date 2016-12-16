@@ -18,7 +18,6 @@
 		F28637BF1DD150E6004171D9 /* Route.swift in Sources */ = {isa = PBXBuildFile; fileRef = F28637BE1DD150E6004171D9 /* Route.swift */; };
 		F2A15A7B1DD250E000B467A8 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A15A7A1DD250E000B467A8 /* MapKit.framework */; };
 		F2A15A7E1DD2B25900B467A8 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2A15A7D1DD2B25900B467A8 /* User.swift */; };
-		F2A15A801DD3AF6E00B467A8 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2A15A7F1DD3AF6E00B467A8 /* CloudKit.framework */; };
 		F2FB097D1E021283009684A0 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2FB097C1E021283009684A0 /* ContainerViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -37,7 +36,6 @@
 		F2A15A7A1DD250E000B467A8 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		F2A15A7C1DD250FF00B467A8 /* SpeedTracker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SpeedTracker.entitlements; sourceTree = "<group>"; };
 		F2A15A7D1DD2B25900B467A8 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = User.swift; path = Models/User.swift; sourceTree = "<group>"; };
-		F2A15A7F1DD3AF6E00B467A8 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		F2FB097C1E021283009684A0 /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContainerViewController.swift; path = Controllers/ContainerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -47,7 +45,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F2A15A7B1DD250E000B467A8 /* MapKit.framework in Frameworks */,
-				F2A15A801DD3AF6E00B467A8 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,7 +123,6 @@
 		F2A15A791DD250E000B467A8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				F2A15A7F1DD3AF6E00B467A8 /* CloudKit.framework */,
 				F2A15A7A1DD250E000B467A8 /* MapKit.framework */,
 			);
 			name = Frameworks;
@@ -174,7 +170,7 @@
 								enabled = 0;
 							};
 							com.apple.iCloud = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -327,7 +323,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = SpeedTracker/SpeedTracker.entitlements;
 				DEVELOPMENT_TEAM = KUNVAN4RR6;
 				INFOPLIST_FILE = SpeedTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
@@ -343,7 +338,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = SpeedTracker/SpeedTracker.entitlements;
 				DEVELOPMENT_TEAM = KUNVAN4RR6;
 				INFOPLIST_FILE = SpeedTracker/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.1;

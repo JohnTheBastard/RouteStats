@@ -14,6 +14,7 @@ class StatsViewController: UIViewController {
     @IBOutlet weak var segmentedControl: UISegmentedControl!
 
     @IBOutlet var statsSectionHeader: UITableViewCell!
+    @IBOutlet weak var statsSectionHeaderLabel: UILabel!
 
     @IBOutlet var routesCell: UITableViewCell!
     @IBOutlet var averageDistanceCell: UITableViewCell!
@@ -53,9 +54,15 @@ class StatsViewController: UIViewController {
 
     @IBAction func statsSegmentedController(_ sender: Any) {
         switch (sender as AnyObject).selectedSegmentIndex {
-            case 0: User.shared.routeType = .run
-            case 1: User.shared.routeType = .bike
-            case 2: User.shared.routeType = .car
+            case 0:
+                User.shared.routeType = .run
+                statsSectionHeaderLabel.text = "Walking Route Statistics"
+            case 1:
+                User.shared.routeType = .bike
+                statsSectionHeaderLabel.text = "Biking Route Statistics"
+            case 2:
+                User.shared.routeType = .car
+                statsSectionHeaderLabel.text = "Driving Route Statistics"
             default: break
         }
 

@@ -10,6 +10,10 @@ import UIKit
 import CoreLocation
 import MapKit
 
+enum ButtonColor {
+    case green, red
+}
+
 
 class RouteViewController: UIViewController {
     // MARK: - Properties
@@ -19,8 +23,9 @@ class RouteViewController: UIViewController {
     @IBOutlet weak var averageSpeed: UILabel!
     @IBOutlet weak var mapView: MKMapView!
 
-    @IBOutlet weak var startButton: UIButton!
-    @IBOutlet weak var stopButton: UIButton!
+    @IBOutlet weak var routeButton: UIButton!
+    @IBOutlet weak var routeButtonImage: UIImageView!
+    var routeButtonState: ButtonColor = .green
 
     let green = UIColor(red:0.15, green:0.50, blue:0.01, alpha:1.0)
     let red = UIColor(red:0.50, green:0.00, blue:0.00, alpha:1.0)
@@ -71,30 +76,37 @@ class RouteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         //UIApplication.shared.statusBarStyle = .lightContent
-        self.mapView.delegate = self
 
-        self.timeTravelled.text = "00:00"
-        self.distanceTravelled.text = "0"
-        self.currentSpeed.text = "0"
-        self.averageSpeed.text = "0"
+        mapView.delegate = self
 
-        if let statsVC = self.parent?.childViewControllers[1] as? StatsViewController {
-            statsVC.segmentedControl.isEnabled = true
-        }
-        self.startButton.isEnabled = true
-        self.stopButton.isEnabled = false
-        self.stopButton.backgroundColor = grayedOut
+        setupView()
+
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         resetProperties()
-        self.locationManager.stopUpdatingLocation()
+        locationManager.stopUpdatingLocation()
     }
 
 
+    private func setupView() {
+        timeTravelled.text = "00:00"
+        distanceTravelled.text = "0"
+        currentSpeed.text = "0"
+        averageSpeed.text = "0"
+
+        if let statsVC = self.parent?.childViewControllers[1] as? StatsViewController {
+            statsVC.segmentedControl.isEnabled = true
+        }
+
+        routeButton.isEnabled = true
+        routeButtonImage.image = routeButtonImage.image!.withRenderingMode(.alwaysTemplate)
+        routeButtonImage.tintColor = green
+    }
+
     private func mapRegion() -> MKCoordinateRegion? {
-        if let initialLoc = self.allLocations.first?.coordinate {
+        if let initialLoc = allLocations.first?.coordinate {
 
             var minLat = initialLoc.latitude
             var minLng = initialLoc.longitude
@@ -119,106 +131,52 @@ class RouteViewController: UIViewController {
     }
 
     private func setupPolyline() {
-        var coords = self.allLocations
+        var coords = allLocations
                          .map({CLLocationCoordinate2D(latitude: $0.coordinate.latitude,
                                                       longitude: $0.coordinate.longitude)})
-        self.polyline = MKPolyline(coordinates: &coords, count: coords.count)
+        polyline = MKPolyline(coordinates: &coords, count: coords.count)
     }
 
     private func loadMap() {
-        if self.allLocations.count > 0 {
-            self.mapView.isHidden = false
-            self.mapView.region = mapRegion()!
+        if allLocations.count > 0 {
+            mapView.isHidden = false
+            mapView.region = mapRegion()!
             setupPolyline()
-            self.mapView.add(self.polyline)
+            mapView.add(self.polyline)
         } else {
             // No locations were found!
-            self.mapView.isHidden = true
+            mapView.isHidden = true
 
             print("Error: no locations saved.")
         }
     }
 
     private func resetProperties(){
-        self.timer.invalidate()
-        self.allLocations = []
-        mapView.remove(self.polyline)
-        self.polyline = MKPolyline(coordinates: [], count: 0)
-        self.locationManagerTimeStamp = Date.distantFuture.timeIntervalSince1970
-        self.elapsedTime = 0
-        self.distance = 0.0
+        timer.invalidate()
+        allLocations = []
+        mapView.remove(polyline)
+        polyline = MKPolyline(coordinates: [], count: 0)
+        locationManagerTimeStamp = Date.distantFuture.timeIntervalSince1970
+        elapsedTime = 0
+        distance = 0.0
     }
 
-    // MARK: - Public Instance Methods
-    func timerRunning() {
-        self.elapsedTime += 1
-        self.timeTravelled.text = Utilities.shared.parseTime(self.elapsedTime)
-
-        guard let currentLocation = self.allLocations.last else {
-            print("Failed to find current location")
-            return
-        }
-
-        self.currentSpeed.text = Utilities.shared.metersToMiles(currentLocation.speed * 3600)
-        self.distanceTravelled.text = Utilities.shared.metersToMiles(self.distance)
-        self.averageSpeed.text = Utilities.shared.metersToMiles(self.averageVelocity * 3600)
-        loadMap()
-    }
-
-    func locationIsValid(new: CLLocation?, old: CLLocation) -> Bool {
-        if new != nil, new!.horizontalAccuracy >= 0, new!.horizontalAccuracy <= 10{
-            let timeSinceLastUpdate = new!.timestamp.timeIntervalSince1970 - old.timestamp.timeIntervalSince1970
-            let timeSinceUpdatesStarted = new!.timestamp.timeIntervalSince1970 - self.locationManagerTimeStamp
-
-            if timeSinceLastUpdate > 0, timeSinceUpdatesStarted > 0{
-                    return true
-            }
-        }
-
-        return false
-    }
-
-    func toggleButtons() {
-        if let statsVC = self.parent?.childViewControllers[1] as? StatsViewController {
-            statsVC.segmentedControl.isEnabled = !statsVC.segmentedControl.isEnabled
-        }
-
-        if self.startButton.isEnabled {
-            self.startButton.backgroundColor = grayedOut
-            self.startButton.isEnabled = false
-        } else {
-            self.startButton.backgroundColor = green
-            self.startButton.isEnabled = true
-        }
-
-        if self.stopButton.isEnabled {
-            self.stopButton.backgroundColor = grayedOut
-            self.stopButton.isEnabled = false
-        } else {
-            self.stopButton.backgroundColor = red
-            self.stopButton.isEnabled = true
-        }
-    }
-
-    // MARK: - Actions
-
-    @IBAction func startButtonPressed(_ sender: Any) {
+    private func beginRoute() {
         resetProperties()
-        self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self,
-                                          selector: #selector(RouteViewController.timerRunning),
-                                          userInfo: nil, repeats: true)
-        self.locationManagerTimeStamp = Date().timeIntervalSince1970
-        self.locationManager.startUpdatingLocation()
-
-        self.toggleButtons()
+        User.shared.currentRoute = .active
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self,
+                                     selector: #selector(RouteViewController.timerRunning),
+                                     userInfo: nil, repeats: true)
+        locationManagerTimeStamp = Date().timeIntervalSince1970
+        locationManager.startUpdatingLocation()
     }
 
-    @IBAction func stopButtonPressed(_ sender: Any) {
-        self.timer.invalidate()
-
-        let completedRoute = Route(timeElapsed: self.elapsedTime,
-                                   distanceTravelled: self.distance,
-                                   locations: self.allLocations)
+    private func endRoute() {
+        timer.invalidate()
+        User.shared.currentRoute = .inactive
+        let completedRoute = Route(timeElapsed: elapsedTime,
+                                   distanceTravelled: distance,
+                                   locations: allLocations)
 
         User.shared.addRoute(route: completedRoute, type: User.shared.routeType, completion: { (success) in
             if success {
@@ -228,17 +186,64 @@ class RouteViewController: UIViewController {
             }
 
         })
-
-        self.toggleButtons()
-
     }
 
-    @IBAction func swipeGestureRecognizer(_ sender: Any) {
-        print("swiper is swiping")
-        self.dismiss(animated: true)
+    private func toggleButtons() {
+        if let statsVC = self.parent?.childViewControllers[1] as? StatsViewController {
+            statsVC.segmentedControl.isEnabled = !statsVC.segmentedControl.isEnabled
+        }
+
+        switch routeButtonState {
+        case .green:
+            routeButtonState = .red
+            routeButtonImage.tintColor = red
+            routeButton.setTitle("End Route", for: .normal)
+        case .red:
+            routeButtonState = .red
+            routeButtonImage.tintColor = green
+            routeButton.setTitle("Begin New Route", for: .normal)
+        }
+        
+    }
+
+    // MARK: - Public Instance Methods
+    func timerRunning() {
+        elapsedTime += 1
+        timeTravelled.text = Utilities.shared.parseTime(elapsedTime)
+
+        guard let currentLocation = allLocations.last else {
+            print("Failed to find current location")
+            return
+        }
+
+        currentSpeed.text = Utilities.shared.metersToMiles(currentLocation.speed * 3600)
+        distanceTravelled.text = Utilities.shared.metersToMiles(distance)
+        averageSpeed.text = Utilities.shared.metersToMiles(averageVelocity * 3600)
+        loadMap()
+    }
+
+    func locationIsValid(new: CLLocation?, old: CLLocation) -> Bool {
+        if new != nil, new!.horizontalAccuracy >= 0, new!.horizontalAccuracy <= 10{
+            let timeSinceLastUpdate = new!.timestamp.timeIntervalSince1970 - old.timestamp.timeIntervalSince1970
+            let timeSinceUpdatesStarted = new!.timestamp.timeIntervalSince1970 - locationManagerTimeStamp
+
+            if timeSinceLastUpdate > 0, timeSinceUpdatesStarted > 0{
+                    return true
+            }
+        }
+
+        return false
     }
 
 
+    // MARK: - Actions
+    @IBAction func routeButtonPressed(_ sender: UIButton) {
+        switch routeButtonState {
+            case .green: beginRoute()
+            case .red: endRoute()
+        }
+        toggleButtons()
+    }
 }
 
 // MARK: - Protocol Extensions
@@ -255,19 +260,20 @@ extension RouteViewController: MKMapViewDelegate {
 }
 
 extension RouteViewController: CLLocationManagerDelegate {
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+    func locationManager(_ manager: CLLocationManager,
+                         didChangeAuthorization status: CLAuthorizationStatus) {
         self.mapView.showsUserLocation = (status == .authorizedAlways)
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         for location in locations {
-            if self.allLocations.count > 1, locationIsValid(new: location, old: self.allLocations.last!) {
-                self.distance += location.distance(from: self.allLocations.last!)
-                self.allLocations.append(location)
-            } else if self.allLocations.count <= 1,
+            if allLocations.count > 1, locationIsValid(new: location, old: allLocations.last!) {
+                distance += location.distance(from: allLocations.last!)
+                allLocations.append(location)
+            } else if allLocations.count <= 1,
                       location.horizontalAccuracy >= 0,
                       location.horizontalAccuracy <= 10 {
-                self.allLocations.append(location)
+                allLocations.append(location)
             }
         }
     }

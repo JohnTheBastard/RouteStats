@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 enum StatsViewPosition {
     case up, down
 }
@@ -34,6 +32,8 @@ class ContainerViewController: UIViewController {
         return true
     }
 
+    var cachedSegmentSelection = 0
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -54,21 +54,28 @@ class ContainerViewController: UIViewController {
     }
 
     func slideStatsVC() {
-
-        switch User.shared.statsViewPosition {
-        case .up:
-            UIView.animate(withDuration: 0.4, animations: {
-                self.childViewControllers[1].view.frame = self.downFrame
-                User.shared.statsViewPosition = .down
-            }, completion: nil)
-        case .down:
-            UIView.animate(withDuration: 0.4, animations: {
-                self.childViewControllers[1].view.frame = self.upFrame
-                User.shared.statsViewPosition = .up
-            }, completion: nil)
+        if let statsVC = childViewControllers[1] as? StatsViewController {
+            //statsVC.statsTableView.reloadData()
+            switch User.shared.statsViewPosition {
+            case .up:
+                UIView.animate(withDuration: 0.4, animations: {
+                    if User.shared.currentRoute == .active{
+                        self.cachedSegmentSelection = statsVC.segmentedControl.selectedSegmentIndex
+                        statsVC.segmentedControl.isEnabled = true
+                    }
+                    statsVC.view.frame = self.downFrame
+                    User.shared.statsViewPosition = .down
+                }, completion: nil)
+            case .down:
+                UIView.animate(withDuration: 0.4, animations: {
+                    if User.shared.currentRoute == .active{
+                        statsVC.segmentedControl.selectedSegmentIndex = self.cachedSegmentSelection
+                        statsVC.segmentedControl.isEnabled = false
+                    }
+                    self.childViewControllers[1].view.frame = self.upFrame
+                    User.shared.statsViewPosition = .up
+                }, completion: nil)
+            }
         }
-
-
     }
-
 }
