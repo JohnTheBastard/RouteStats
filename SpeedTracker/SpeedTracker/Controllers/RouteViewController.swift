@@ -192,14 +192,14 @@ class RouteViewController: UIViewController {
         if let statsVC = self.parent?.childViewControllers[1] as? StatsViewController {
             statsVC.segmentedControl.isEnabled = !statsVC.segmentedControl.isEnabled
         }
-
         switch routeButtonState {
+
         case .green:
             routeButtonState = .red
             routeButtonImage.tintColor = red
             routeButton.setTitle("End Route", for: .normal)
         case .red:
-            routeButtonState = .red
+            routeButtonState = .green
             routeButtonImage.tintColor = green
             routeButton.setTitle("Begin New Route", for: .normal)
         }
