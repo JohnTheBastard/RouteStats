@@ -21,6 +21,7 @@
 		F20582BA1E04A090005232BF /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20582B71E04A090005232BF /* ContainerViewController.swift */; };
 		F20582BB1E04A090005232BF /* RouteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20582B81E04A090005232BF /* RouteViewController.swift */; };
 		F20582BC1E04A090005232BF /* StatsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F20582B91E04A090005232BF /* StatsViewController.swift */; };
+		F227232C1E04CE6300EF57B9 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F227232B1E04CE6300EF57B9 /* Launch Screen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +62,7 @@
 		F20582B71E04A090005232BF /* ContainerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ContainerViewController.swift; path = Controllers/ContainerViewController.swift; sourceTree = "<group>"; };
 		F20582B81E04A090005232BF /* RouteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RouteViewController.swift; path = Controllers/RouteViewController.swift; sourceTree = "<group>"; };
 		F20582B91E04A090005232BF /* StatsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StatsViewController.swift; path = Controllers/StatsViewController.swift; sourceTree = "<group>"; };
+		F227232B1E04CE6300EF57B9 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = "Launch Screen.storyboard"; path = "Views/Launch Screen.storyboard"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +164,7 @@
 				F20582A31E049F77005232BF /* Assets.xcassets */,
 				F20582A41E049F77005232BF /* RouteViewController.xib */,
 				F20582A51E049F77005232BF /* StatsViewController.xib */,
+				F227232B1E04CE6300EF57B9 /* Launch Screen.storyboard */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -308,6 +311,7 @@
 			files = (
 				F20582A71E049F77005232BF /* RouteViewController.xib in Resources */,
 				F20582A81E049F77005232BF /* StatsViewController.xib in Resources */,
+				F227232C1E04CE6300EF57B9 /* Launch Screen.storyboard in Resources */,
 				F20582A61E049F77005232BF /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -575,6 +579,7 @@
 				F20582941E049D8F005232BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F20582951E049D8F005232BF /* Build configuration list for PBXNativeTarget "RouteStatsTests" */ = {
 			isa = XCConfigurationList;
@@ -583,6 +588,7 @@
 				F20582971E049D8F005232BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F20582981E049D8F005232BF /* Build configuration list for PBXNativeTarget "RouteStatsUITests" */ = {
 			isa = XCConfigurationList;
@@ -591,6 +597,7 @@
 				F205829A1E049D8F005232BF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
